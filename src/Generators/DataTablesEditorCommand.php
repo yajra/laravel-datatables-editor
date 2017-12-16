@@ -14,8 +14,8 @@ class DataTablesEditorCommand extends GeneratorCommand
      * @var string
      */
     protected $signature = 'datatables:editor 
-                            {name : The name of the datatable.}
-                            {--model : The name of the model to be used.}
+                            {name : The name of the dataTable editor.}
+                            {--model : The name given will be used as the model is singular form.}
                             {--model-namespace= : The namespace of the model to be used.}';
 
     /**
