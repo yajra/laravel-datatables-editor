@@ -30,19 +30,19 @@ This package is a plugin of [Laravel DataTables](https://github.com/yajra/larave
 - Artisan command for DataTables Editor generation.
 
 ## ROAD MAP
-- ~~Add artisan command to generate DataTablesEditor stub.~~
-- ~~Fix issue with edit action where unmodified column are being added on the request.~~
+- [x] Add artisan command to generate DataTablesEditor stub.
+- [x] Fix issue with edit action where unmodified column are being added on the request.
  
-    This only happens when the field is [password](http://luik.datatables.net/forums/discussion/34151/how-do-i-prevent-password-field-from-changing-every-time-a-row-is-edited).
+    > This only happens when the field is [password](http://luik.datatables.net/forums/discussion/34151/how-do-i-prevent-password-field-from-changing-every-time-a-row-is-edited).
     The solution is to add an empty password on response.
      
     ```php
     datatables(User::query())->setRowId('id')->addColumn('password', '')->toJson()
     ```
-
-- Add tests.
-- Docs, docs, docs...
-- Create demo site.
+- [x] Add CRUD pre / post event hooks.
+- [ ] Add tests.
+- [ ] Docs, docs, docs...
+- [ ] Create demo site.
 
 ## Quick Installation
 
