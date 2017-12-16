@@ -31,9 +31,11 @@ This package is a plugin of [Laravel DataTables](https://github.com/yajra/larave
 
 ## ROAD MAP
 - ~~Add artisan command to generate DataTablesEditor stub.~~
-- ~~Fix issue with edit action where unmodified column are being added on the request.~~ 
+- ~~Fix issue with edit action where unmodified column are being added on the request.~~
+ 
     This only happens when the field is [password](http://luik.datatables.net/forums/discussion/34151/how-do-i-prevent-password-field-from-changing-every-time-a-row-is-edited).
-    The solution is to add an empty password on response. `->addColumn('password', ''')`
+    The solution is to add an empty password on response. `->addColumn('password', '')`
+
 - Docs, docs, docs...
 - Create demo site.
 
