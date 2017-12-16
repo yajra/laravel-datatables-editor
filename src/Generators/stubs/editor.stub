@@ -33,7 +33,7 @@ class DummyClass extends DataTablesEditor
     public function editRules(Model $model)
     {
         return [
-            'email' => 'sometimes|required|email|' . Rule::unique('users')->ignore($model->getKey()),
+            'email' => 'sometimes|required|email|' . Rule::unique($model->getTable())->ignore($model->getKey()),
             'name'  => 'sometimes|required',
         ];
     }
