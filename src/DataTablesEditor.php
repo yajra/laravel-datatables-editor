@@ -66,13 +66,11 @@ abstract class DataTablesEditor
                 continue;
             }
 
-            $model = $instance->newQuery();
-
             if (method_exists($this, 'creating')) {
-                $data = $this->creating($model, $data);
+                $data = $this->creating($instance, $data);
             }
 
-            $model = $model->create($data);
+            $model = $instance->newQuery()->create($data);
             $model->setAttribute('DT_RowId', $model->getKey());
 
             if (method_exists($this, 'created')) {
