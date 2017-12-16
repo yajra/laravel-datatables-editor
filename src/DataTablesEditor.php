@@ -155,15 +155,15 @@ abstract class DataTablesEditor
      */
     public function edit(Request $request)
     {
-        $model      = $this->resolveModel();
-        $connection = $model->getConnection();
+        $instance   = $this->resolveModel();
+        $connection = $instance->getConnection();
         $affected   = [];
         $errors     = [];
 
         $connection->beginTransaction();
-        foreach ($request->get('data') as $key => $datum) {
-            $instance  = $model->newQuery()->find($key);
-            $validator = $this->getValidationFactory()->make($datum, $this->getEditRules($instance));
+        foreach ($request->get('data') as $key => $data) {
+            $model     = $instance->newQuery()->find($key);
+            $validator = $this->getValidationFactory()->make($data, $this->getEditRules($model));
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -173,17 +173,17 @@ abstract class DataTablesEditor
             }
 
             if (method_exists($this, 'updating')) {
-                app()->call([$this, 'updating'], ['model' => $instance]);
+                $data = app()->call([$this, 'updating'], compact('model', 'data'));
             }
 
-            $instance->update($datum);
+            $model->update($data);
 
             if (method_exists($this, 'updated')) {
-                app()->call([$this, 'updated'], ['model' => $instance]);
+                app()->call([$this, 'updated'], compact('model', 'data'));
             }
 
-            $instance->setAttribute('DT_RowId', $instance->getKey());
-            $affected[] = $instance;
+            $model->setAttribute('DT_RowId', $model->getKey());
+            $affected[] = $model;
         }
 
         if (! $errors) {
