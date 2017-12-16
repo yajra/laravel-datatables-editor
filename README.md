@@ -34,7 +34,11 @@ This package is a plugin of [Laravel DataTables](https://github.com/yajra/larave
 - ~~Fix issue with edit action where unmodified column are being added on the request.~~
  
     This only happens when the field is [password](http://luik.datatables.net/forums/discussion/34151/how-do-i-prevent-password-field-from-changing-every-time-a-row-is-edited).
-    The solution is to add an empty password on response. `->addColumn('password', '')`
+    The solution is to add an empty password on response.
+     
+    ```php
+    datatables(User::query())->setRowId('id')->addColumn('password', '')->toJson()
+    ```
 
 - Docs, docs, docs...
 - Create demo site.
