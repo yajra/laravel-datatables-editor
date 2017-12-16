@@ -20,7 +20,8 @@ This package is a plugin of [Laravel DataTables](https://github.com/yajra/larave
 
 ## Documentations
 
-- COMING SOON!
+- [Laravel DataTables Editor Manual](https://yajrabox.com/docs/laravel-datatables/master/editor-installation)
+- [jQuery DataTables Editor Manual](https://editor.datatables.net/manual/index)
 
 ## Features
 
@@ -43,7 +44,7 @@ This package is a plugin of [Laravel DataTables](https://github.com/yajra/larave
     ```
 - [x] Add CRUD pre / post event hooks.
 - [x] Add tests.
-- [ ] Docs, docs, docs...
+- [x] Docs, docs, docs...
 - [ ] Create demo site.
 
 ## Quick Installation
