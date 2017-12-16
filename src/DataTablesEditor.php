@@ -50,14 +50,14 @@ abstract class DataTablesEditor
      */
     public function create(Request $request)
     {
-        $model      = $this->resolveModel();
-        $connection = $model->getConnection();
+        $instance   = $this->resolveModel();
+        $connection = $instance->getConnection();
         $affected   = [];
         $errors     = [];
 
         $connection->beginTransaction();
-        foreach ($request->get('data') as $datum) {
-            $validator = $this->getValidationFactory()->make($datum, $this->getCreateRules());
+        foreach ($request->get('data') as $data) {
+            $validator = $this->getValidationFactory()->make($data, $this->getCreateRules());
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -66,20 +66,20 @@ abstract class DataTablesEditor
                 continue;
             }
 
-            $instance = $model->newQuery();
+            $model = $instance->newQuery();
 
             if (method_exists($this, 'creating')) {
-                app()->call([$this, 'creating'], ['model' => $instance]);
+                $data = $this->creating($model, $data);
             }
 
-            $instance = $instance->create($datum);
-            $instance->setAttribute('DT_RowId', $instance->getKey());
+            $model = $model->create($data);
+            $model->setAttribute('DT_RowId', $model->getKey());
 
             if (method_exists($this, 'created')) {
-                app()->call([$this, 'created'], ['model' => $instance]);
+                $this->created($model, $data);
             }
 
-            $affected[] = $instance;
+            $affected[] = $model;
         }
 
         if (! $errors) {
