@@ -26,9 +26,6 @@ This package is a plugin of [Laravel DataTables](https://github.com/yajra/larave
 ## Quick Installation
 `composer require yajra/laravel-datatables-editor:^1.0`
 
-#### Service Provider (Optional on Laravel 5.5)
-`Yajra\DataTables\EditorServiceProvider::class`
-
 And that's it! Start building out some awesome DataTables Editor!
 
 ## Contributing
