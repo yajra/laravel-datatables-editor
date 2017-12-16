@@ -39,7 +39,7 @@ abstract class DataTablesEditor
             throw new DataTablesEditorException('Requested action not supported!');
         }
 
-        return app()->call([$this, $action]);
+        return $this->{$action}($request);
     }
 
     /**
