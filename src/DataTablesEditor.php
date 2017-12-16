@@ -162,9 +162,6 @@ abstract class DataTablesEditor
 
         $connection->beginTransaction();
         foreach ($request->get('data') as $key => $datum) {
-            // TODO: verify why some fields that were not edited gets included in the request.
-            // Work around is to filter empty values.
-            $datum     = array_filter($datum);
             $instance  = $model->newQuery()->find($key);
             $validator = $this->getValidationFactory()->make($datum, $this->getEditRules($instance));
             if ($validator->fails()) {
