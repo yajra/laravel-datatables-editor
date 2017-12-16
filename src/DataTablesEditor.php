@@ -209,15 +209,15 @@ abstract class DataTablesEditor
      */
     public function remove(Request $request)
     {
-        $model      = $this->resolveModel();
-        $connection = $model->getConnection();
+        $instance   = $this->resolveModel();
+        $connection = $instance->getConnection();
         $affected   = [];
         $errors     = [];
 
         $connection->beginTransaction();
-        foreach ($request->get('data') as $key => $datum) {
-            $instance  = $model->newQuery()->find($key);
-            $validator = $this->getValidationFactory()->make($datum, $this->getRemoveRules($instance));
+        foreach ($request->get('data') as $key => $data) {
+            $model     = $instance->newQuery()->find($key);
+            $validator = $this->getValidationFactory()->make($data, $this->getRemoveRules($model));
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -227,16 +227,16 @@ abstract class DataTablesEditor
             }
 
             if (method_exists($this, 'deleting')) {
-                app()->call([$this, 'deleting'], ['model' => $instance]);
+                $this->deleting($model, $data);
             }
 
-            $instance->delete();
+            $model->delete();
 
             if (method_exists($this, 'deleted')) {
-                app()->call([$this, 'deleted'], ['model' => $instance]);
+                $this->deleted($model, $data);
             }
 
-            $affected[] = $instance;
+            $affected[] = $model;
         }
 
         if (! $errors) {
