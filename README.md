@@ -9,12 +9,19 @@
 
 This package is a plugin of [Laravel DataTables](https://github.com/yajra/laravel-datatables) for processing [DataTables Editor](https://editor.datatables.net/) integration.
 
+> Special thanks to [@bellwood](https://github.com/bellwood) and [@DataTables](https://github.com/datatables) for being [generous](https://github.com/yajra/laravel-datatables/issues/1548) for providing a license to support the development of this package.
+
 ## Requirements
 - [Laravel 5.5](https://github.com/laravel/framework)
 - [Laravel DataTables v8.x](https://github.com/yajra/laravel-datatables)
 
 ## Documentations
 - COMING SOON!
+
+## ROAD MAP
+- Add artisan command to generate DataTablesEditor stub.
+- Fix issue with edit action where unmodified column are being added on the request.
+- Docs, docs, docs...
 
 ## Quick Installation
 `composer require yajra/laravel-datatables-editor:^1.0`
