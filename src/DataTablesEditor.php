@@ -173,13 +173,13 @@ abstract class DataTablesEditor
             }
 
             if (method_exists($this, 'updating')) {
-                $data = app()->call([$this, 'updating'], compact('model', 'data'));
+                $data = $this->updating($model, $data);
             }
 
             $model->update($data);
 
             if (method_exists($this, 'updated')) {
-                app()->call([$this, 'updated'], compact('model', 'data'));
+                $this->updated($model, $data);
             }
 
             $model->setAttribute('DT_RowId', $model->getKey());
