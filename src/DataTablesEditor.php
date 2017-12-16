@@ -57,7 +57,7 @@ abstract class DataTablesEditor
 
         $connection->beginTransaction();
         foreach ($request->get('data') as $data) {
-            $validator = $this->getValidationFactory()->make($data, $this->getCreateRules());
+            $validator = $this->getValidationFactory()->make($data, $this->createRules());
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -108,7 +108,7 @@ abstract class DataTablesEditor
      *
      * @return array
      */
-    abstract public function getCreateRules();
+    abstract public function createRules();
 
     /**
      * @param Validator $validator
@@ -161,7 +161,7 @@ abstract class DataTablesEditor
         $connection->beginTransaction();
         foreach ($request->get('data') as $key => $data) {
             $model     = $instance->newQuery()->find($key);
-            $validator = $this->getValidationFactory()->make($data, $this->getEditRules($model));
+            $validator = $this->getValidationFactory()->make($data, $this->editRules($model));
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -199,7 +199,7 @@ abstract class DataTablesEditor
      * @param Model $model
      * @return array
      */
-    abstract public function getEditRules(Model $model);
+    abstract public function editRules(Model $model);
 
     /**
      * Process remove action request.
@@ -217,7 +217,7 @@ abstract class DataTablesEditor
         $connection->beginTransaction();
         foreach ($request->get('data') as $key => $data) {
             $model     = $instance->newQuery()->find($key);
-            $validator = $this->getValidationFactory()->make($data, $this->getRemoveRules($model));
+            $validator = $this->getValidationFactory()->make($data, $this->removeRules($model));
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -254,7 +254,7 @@ abstract class DataTablesEditor
      * @param Model $model
      * @return array
      */
-    abstract public function getRemoveRules(Model $model);
+    abstract public function removeRules(Model $model);
 
     /**
      * Display dataTables editor validation errors.

@@ -16,7 +16,7 @@ class DummyClass extends DataTablesEditor
      *
      * @return array
      */
-    public function getCreateRules()
+    public function createRules()
     {
         return [
             'email' => 'required|email|unique:users',
@@ -30,7 +30,7 @@ class DummyClass extends DataTablesEditor
      * @param Model $model
      * @return array
      */
-    public function getEditRules(Model $model)
+    public function editRules(Model $model)
     {
         return [
             'email' => 'sometimes|required|email|' . Rule::unique('users')->ignore($model->getKey()),
@@ -44,7 +44,7 @@ class DummyClass extends DataTablesEditor
      * @param Model $model
      * @return array
      */
-    public function getRemoveRules(Model $model)
+    public function removeRules(Model $model)
     {
         return [];
     }
