@@ -40,6 +40,7 @@ This package is a plugin of [Laravel DataTables](https://github.com/yajra/larave
     datatables(User::query())->setRowId('id')->addColumn('password', '')->toJson()
     ```
 
+- Add tests.
 - Docs, docs, docs...
 - Create demo site.
 
