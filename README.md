@@ -12,11 +12,22 @@ This package is a plugin of [Laravel DataTables](https://github.com/yajra/larave
 > Special thanks to [@bellwood](https://github.com/bellwood) and [@DataTables](https://github.com/datatables) for being [generous](https://github.com/yajra/laravel-datatables/issues/1548) for providing a license to support the development of this package.
 
 ## Requirements
+
 - [Laravel 5.5](https://github.com/laravel/framework)
 - [Laravel DataTables v8.x](https://github.com/yajra/laravel-datatables)
 
 ## Documentations
+
 - COMING SOON!
+
+## Features
+
+- DataTables Editor CRUD actions supported.
+- Inline editing.
+- Bulk edit & delete function.
+- CRUD validation.
+- CRUD pre / post events hooks.
+- Artisan command for DataTables Editor generation.
 
 ## ROAD MAP
 - ~~Add artisan command to generate DataTablesEditor stub.~~
@@ -27,6 +38,7 @@ This package is a plugin of [Laravel DataTables](https://github.com/yajra/larave
 - Create demo site.
 
 ## Quick Installation
+
 `composer require yajra/laravel-datatables-editor:^1.0`
 
 And that's it! Start building out some awesome DataTables Editor!
@@ -49,5 +61,6 @@ If you discover any security related issues, please email [aqangeles@gmail.com](
 The MIT License (MIT). Please see [License File](https://github.com/yajra/laravel-datatables-editor/blob/master/LICENSE.md) for more information.
 
 ## Buy me a coffee
+
 <a href='https://pledgie.com/campaigns/29515'><img alt='Click here to lend your support to: Laravel DataTables and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/29515.png?skin_name=chrome' border='0' ></a>
 <a href='https://www.patreon.com/bePatron?u=4521203'><img alt='Become a Patron' src='https://s3.amazonaws.com/patreon_public_assets/toolbox/patreon.png' border='0' width='200px' ></a>
