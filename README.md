@@ -19,7 +19,7 @@ This package is a plugin of [Laravel DataTables](https://github.com/yajra/larave
 - COMING SOON!
 
 ## ROAD MAP
-- Add artisan command to generate DataTablesEditor stub.
+- ~~Add artisan command to generate DataTablesEditor stub.~~
 - Fix issue with edit action where unmodified column are being added on the request.
 - Docs, docs, docs...
 
