@@ -220,7 +220,7 @@ abstract class DataTablesEditor
             $validator = $this->getValidationFactory()->make($data, $this->removeRules($model));
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
-                    $errors[] = $error;
+                    $errors[$key] = $error;
                 };
 
                 continue;
