@@ -4,6 +4,7 @@ namespace Yajra\DataTables;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -220,20 +221,25 @@ abstract class DataTablesEditor
             $validator = $this->getValidationFactory()->make($data, $this->removeRules($model));
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
-                    $errors[$key] = $error;
+                    $errors[] = $error;
                 };
 
                 continue;
             }
 
-            if (method_exists($this, 'deleting')) {
-                $this->deleting($model, $data);
-            }
+            try {
+                if (method_exists($this, 'deleting')) {
+                    $this->deleting($model, $data);
+                }
 
-            $model->delete();
+                $model->delete();
 
-            if (method_exists($this, 'deleted')) {
-                $this->deleted($model, $data);
+                if (method_exists($this, 'deleted')) {
+                    $this->deleted($model, $data);
+                }
+            } catch (QueryException $exception) {
+                $error = config('app.debug') ? $exception->errorInfo[2] : "Record {$model->getKey()} is protected and cannot be deleted!";
+                $errors[] = $error;
             }
 
             $affected[] = $model;
@@ -245,7 +251,12 @@ abstract class DataTablesEditor
             $connection->rollBack();
         }
 
-        return $this->toJson($affected, $errors);
+        $response = ['data' => $affected];
+        if ($errors) {
+            $response['error'] = implode("\n", $errors);
+        }
+
+        return new JsonResponse($response, 200);
     }
 
     /**
