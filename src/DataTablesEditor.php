@@ -238,7 +238,7 @@ abstract class DataTablesEditor
                     $this->deleted($model, $data);
                 }
             } catch (QueryException $exception) {
-                $error = config('app.debug') ? $exception->errorInfo[2] : "Record {$model->getKey()} is protected and cannot be deleted!";
+                $error    = config('app.debug') ? $exception->errorInfo[2] : $this->removeExceptionMessage($exception, $model);
                 $errors[] = $error;
             }
 
@@ -266,6 +266,18 @@ abstract class DataTablesEditor
      * @return array
      */
     abstract public function removeRules(Model $model);
+
+    /**
+     * Get remove query exception message.
+     *
+     * @param QueryException $exception
+     * @param Model          $model
+     * @return string
+     */
+    protected function removeExceptionMessage(QueryException $exception, Model $model)
+    {
+        return "Record {$model->getKey()} is protected and cannot be deleted!";
+    }
 
     /**
      * Display dataTables editor validation errors.
