@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v1.1.4] - 2018-06-17
+
+- Fix displaying of remove validation errors.
+
 ## [v1.1.3] - 2018-06-17
 
 - Refactor remove query exception message.
@@ -34,7 +38,8 @@
 - CRUD pre / post events hooks.
 - Artisan command for DataTables Editor generation.
 
-[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.1.3...master
+[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.1.4...master
+[v1.1.4]: https://github.com/yajra/laravel-datatables-editor/compare/v1.1.3...v1.1.4
 [v1.1.3]: https://github.com/yajra/laravel-datatables-editor/compare/v1.1.2...v1.1.3
 [v1.1.2]: https://github.com/yajra/laravel-datatables-editor/compare/v1.1.1...v1.1.2
 [v1.1.1]: https://github.com/yajra/laravel-datatables-editor/compare/v1.1.0...v1.1.1
