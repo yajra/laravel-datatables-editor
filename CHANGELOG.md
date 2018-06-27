@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v1.2.0] - 2018-06-27
+
+- Add functions to override validation messages.
+
 ## [v1.1.4] - 2018-06-17
 
 - Fix displaying of remove validation errors.
@@ -38,7 +42,8 @@
 - CRUD pre / post events hooks.
 - Artisan command for DataTables Editor generation.
 
-[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.1.4...master
+[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.2.0...master
+[v1.2.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.1.4...v1.2.0
 [v1.1.4]: https://github.com/yajra/laravel-datatables-editor/compare/v1.1.3...v1.1.4
 [v1.1.3]: https://github.com/yajra/laravel-datatables-editor/compare/v1.1.2...v1.1.3
 [v1.1.2]: https://github.com/yajra/laravel-datatables-editor/compare/v1.1.1...v1.1.2
