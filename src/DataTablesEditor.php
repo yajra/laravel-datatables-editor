@@ -58,7 +58,7 @@ abstract class DataTablesEditor
 
         $connection->beginTransaction();
         foreach ($request->get('data') as $data) {
-            $validator = $this->getValidationFactory()->make($data, $this->createRules());
+            $validator = $this->getValidationFactory()->make($data, $this->createRules(), $this->createMessages());
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -112,6 +112,16 @@ abstract class DataTablesEditor
     abstract public function createRules();
 
     /**
+     * Get create validation messages.
+     *
+     * @return array
+     */
+    protected function createMessages()
+    {
+        return [];
+    }
+
+    /**
      * @param Validator $validator
      * @return array
      */
@@ -162,7 +172,7 @@ abstract class DataTablesEditor
         $connection->beginTransaction();
         foreach ($request->get('data') as $key => $data) {
             $model     = $instance->newQuery()->find($key);
-            $validator = $this->getValidationFactory()->make($data, $this->editRules($model));
+            $validator = $this->getValidationFactory()->make($data, $this->editRules($model), $this->editMessages());
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -203,6 +213,16 @@ abstract class DataTablesEditor
     abstract public function editRules(Model $model);
 
     /**
+     * Get edit validation messages.
+     *
+     * @return array
+     */
+    protected function editMessages()
+    {
+        return [];
+    }
+
+    /**
      * Process remove action request.
      *
      * @param Request $request
@@ -218,7 +238,8 @@ abstract class DataTablesEditor
         $connection->beginTransaction();
         foreach ($request->get('data') as $key => $data) {
             $model     = $instance->newQuery()->find($key);
-            $validator = $this->getValidationFactory()->make($data, $this->removeRules($model));
+            $validator = $this->getValidationFactory()
+                              ->make($data, $this->removeRules($model), $this->removeMessages());
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error['status'];
@@ -266,6 +287,16 @@ abstract class DataTablesEditor
      * @return array
      */
     abstract public function removeRules(Model $model);
+
+    /**
+     * Get remove validation messages.
+     *
+     * @return array
+     */
+    protected function removeMessages()
+    {
+        return [];
+    }
 
     /**
      * Get remove query exception message.
