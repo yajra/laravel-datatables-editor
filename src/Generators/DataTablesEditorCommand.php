@@ -2,9 +2,8 @@
 
 namespace Yajra\DataTables\Generators;
 
-use Illuminate\Console\GeneratorCommand;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputOption;
+use Illuminate\Console\GeneratorCommand;
 
 class DataTablesEditorCommand extends GeneratorCommand
 {

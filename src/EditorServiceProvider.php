@@ -3,7 +3,6 @@
 namespace Yajra\DataTables;
 
 use Illuminate\Support\ServiceProvider;
-use Collective\Html\EditorServiceProvider as CollectiveHtml;
 use Yajra\DataTables\Generators\DataTablesEditorCommand;
 
 class EditorServiceProvider extends ServiceProvider

@@ -2,12 +2,12 @@
 
 namespace Yajra\DataTables;
 
-use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 abstract class DataTablesEditor
 {
@@ -62,7 +62,7 @@ abstract class DataTablesEditor
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
-                };
+                }
 
                 continue;
             }
@@ -176,7 +176,7 @@ abstract class DataTablesEditor
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
-                };
+                }
 
                 continue;
             }
@@ -243,7 +243,7 @@ abstract class DataTablesEditor
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error['status'];
-                };
+                }
 
                 continue;
             }
@@ -327,12 +327,12 @@ abstract class DataTablesEditor
     }
 
     /**
-	 * Get custom attributes for validator errors.
-	 *
-	 * @return array
-	 */
-	public function attributes()
-	{
-		return [];
-	}
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [];
+    }
 }
