@@ -55,7 +55,6 @@ class DataTablesEditorRemoveTest extends TestCase
             ],
         ]);
 
-
         $this->assertDatabaseMissing('users', ['id' => 1]);
         $this->assertDatabaseMissing('users', ['id' => 2]);
 
