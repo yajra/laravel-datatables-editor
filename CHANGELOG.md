@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v1.4.0] - 2018-08-15
+
+- Add support for dataTables buttons package v4.
+
 ## [v1.3.0] - 2018-08-01
 
 - Get custom attributes for validator errors [#14], credits to @karmendra
