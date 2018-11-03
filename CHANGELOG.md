@@ -1,6 +1,10 @@
-# Laravel DataTables Editor CHANGELOG 
+# Laravel DataTables Editor CHANGELOG
 
 ## [Unreleased]
+
+## [v1.6.0] - 2018-11-03
+
+- Add saving & saved event hook.
 
 ## [v1.5.0] - 2018-09-05
 
