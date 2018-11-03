@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v1.6.1] - 2018-11-03
+
+- Fix model instance.
+
 ## [v1.6.0] - 2018-11-03
 
 - Add saving & saved event hook.
