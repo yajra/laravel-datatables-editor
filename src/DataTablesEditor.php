@@ -71,11 +71,19 @@ abstract class DataTablesEditor
                 $data = $this->creating($instance, $data);
             }
 
+            if (method_exists($this, 'saving')) {
+                $data = $this->saving($model, $data);
+            }
+
             $model = $instance->newQuery()->create($data);
             $model->setAttribute('DT_RowId', $model->getKey());
 
             if (method_exists($this, 'created')) {
                 $this->created($model, $data);
+            }
+
+            if (method_exists($this, 'saved')) {
+                $this->saved($model, $data);
             }
 
             $affected[] = $model;
@@ -185,10 +193,18 @@ abstract class DataTablesEditor
                 $data = $this->updating($model, $data);
             }
 
+            if (method_exists($this, 'saving')) {
+                $data = $this->saving($model, $data);
+            }
+
             $model->update($data);
 
             if (method_exists($this, 'updated')) {
                 $this->updated($model, $data);
+            }
+
+            if (method_exists($this, 'saved')) {
+                $this->saved($model, $data);
             }
 
             $model->setAttribute('DT_RowId', $model->getKey());
