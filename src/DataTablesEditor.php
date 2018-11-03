@@ -72,7 +72,7 @@ abstract class DataTablesEditor
             }
 
             if (method_exists($this, 'saving')) {
-                $data = $this->saving($model, $data);
+                $data = $this->saving($instance, $data);
             }
 
             $model = $instance->newQuery()->create($data);
