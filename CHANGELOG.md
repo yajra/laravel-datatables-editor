@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v1.7.0] - 2019-02-27
+
+- Add support for Laravel 5.8.
+
 ## [v1.6.1] - 2018-11-03
 
 - Fix model instance.
