@@ -339,10 +339,10 @@ abstract class DataTablesEditor
     /**
      * Set the dataTables model on runtime.
      *
-     * @param Model $model
+     * @param Model|string $model
      * @return DataTablesEditor
      */
-    public function setModel(Model $model)
+    public function setModel($model)
     {
         $this->model = $model;
 
