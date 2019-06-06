@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v1.8.0] - 2019-06-06
+
+- Get some new attributes when calling hooks [#27], credits to @aminprox
+- Add model fluent getter and setter. [#29], fix [#24].
+- Fix and added tests [#31].
+
 ## [v1.7.0] - 2019-02-27
 
 - Add support for Laravel 5.8.
@@ -67,7 +73,11 @@
 - CRUD pre / post events hooks.
 - Artisan command for DataTables Editor generation.
 
-[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.5.0...master
+[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.8.0...master
+[v1.8.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.7.0...v1.8.0
+[v1.7.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.6.1...v1.7.0
+[v1.6.1]: https://github.com/yajra/laravel-datatables-editor/compare/v1.6.0...v1.6.1
+[v1.6.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.5.0...v1.6.0
 [v1.5.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.4.0...v1.5.0
 [v1.4.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.3.0...v1.4.0
 [v1.3.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.2.0...v1.3.0
@@ -81,5 +91,9 @@
 
 [#9]: https://github.com/yajra/laravel-datatables-editor/pull/9
 [#14]: https://github.com/yajra/laravel-datatables-editor/pull/14
+[#27]: https://github.com/yajra/laravel-datatables-editor/pull/27
+[#29]: https://github.com/yajra/laravel-datatables-editor/pull/29
+[#31]: https://github.com/yajra/laravel-datatables-editor/pull/31
 
 [#13]: https://github.com/yajra/laravel-datatables-editor/issues/13
+[#24]: https://github.com/yajra/laravel-datatables-editor/issues/24
