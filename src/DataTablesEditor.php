@@ -327,6 +327,29 @@ abstract class DataTablesEditor
     }
 
     /**
+     * Get dataTables model.
+     *
+     * @return Model
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Set the dataTables model on runtime.
+     *
+     * @param Model $model
+     * @return DataTablesEditor
+     */
+    public function setModel(Model $model)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
      * Display dataTables editor validation errors.
      *
      * @param Validator $validator
