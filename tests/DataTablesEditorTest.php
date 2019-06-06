@@ -2,10 +2,10 @@
 
 namespace Yajra\DataTables\Tests;
 
-use Yajra\DataTables\DataTablesEditorException;
-use Yajra\DataTables\Tests\Editors\UsersDataTableEditor;
 use Yajra\DataTables\Tests\Models\Post;
 use Yajra\DataTables\Tests\Models\User;
+use Yajra\DataTables\DataTablesEditorException;
+use Yajra\DataTables\Tests\Editors\UsersDataTableEditor;
 
 class DataTablesEditorTest extends TestCase
 {
