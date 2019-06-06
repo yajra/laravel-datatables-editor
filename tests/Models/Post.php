@@ -4,12 +4,12 @@ namespace Yajra\DataTables\Tests\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Post extends Model
 {
     protected $guarded = [];
 
-    public function posts()
+    public function user()
     {
-        return $this->hasMany(Post::class);
+        return $this->belongsToMany(User::class);
     }
 }
