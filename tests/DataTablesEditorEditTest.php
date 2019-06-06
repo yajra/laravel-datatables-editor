@@ -28,6 +28,31 @@ class DataTablesEditorEditTest extends TestCase
     }
 
     /** @test */
+    public function it_allows_updated_callback_and_returns_the_modified_model()
+    {
+        $this->createUser();
+
+        $response = $this->postJson('usersWithEvents', [
+            'action' => 'edit',
+            'data'   => [
+                1 => [
+                    'name'  => 'Jeffrey',
+                    'email' => 'jefrrey@laravel.com',
+                ],
+            ],
+        ]);
+
+        $data = $response->json()['data'][0];
+
+        $this->assertArrayHasKey('id', $data);
+        $this->assertEquals(1, $data['id']);
+        $this->assertEquals('Jeffrey', $data['name']);
+        $this->assertEquals('jefrrey@laravel.com', $data['email']);
+        $this->assertEquals('it works!', $data['updated']);
+        $this->assertEquals('it works!', $data['saved']);
+    }
+
+    /** @test */
     public function it_can_validate_invalid_inputs()
     {
         $this->createUser();
