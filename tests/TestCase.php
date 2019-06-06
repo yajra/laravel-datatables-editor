@@ -14,7 +14,7 @@ abstract class TestCase extends BaseTestCase
 {
     use RefreshDatabase;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
