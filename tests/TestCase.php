@@ -9,6 +9,7 @@ use Yajra\DataTables\EditorServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Yajra\DataTables\Tests\Editors\UsersDataTableEditor;
+use Yajra\DataTables\Tests\Editors\UsersWithEventsDataTableEditor;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -21,6 +22,10 @@ abstract class TestCase extends BaseTestCase
         $this->migrateDatabase();
 
         $this->app['router']->post('users', function (UsersDataTableEditor $editor, Request $request) {
+            return $editor->process($request);
+        });
+
+        $this->app['router']->post('usersWithEvents', function (UsersWithEventsDataTableEditor $editor, Request $request) {
             return $editor->process($request);
         });
     }
