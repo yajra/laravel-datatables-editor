@@ -291,6 +291,7 @@ abstract class DataTablesEditor
             }
 
             try {
+                $deleted = clone $model;
                 if (method_exists($this, 'deleting')) {
                     $this->deleting($model, $data);
                 }
@@ -298,14 +299,17 @@ abstract class DataTablesEditor
                 $model->delete();
 
                 if (method_exists($this, 'deleted')) {
-                    $this->deleted($model, $data);
+                    $this->deleted($deleted, $data);
                 }
             } catch (QueryException $exception) {
-                $error    = config('app.debug') ? $exception->errorInfo[2] : $this->removeExceptionMessage($exception, $model);
+                $error = config('app.debug')
+                    ? $exception->errorInfo[2]
+                    : $this->removeExceptionMessage($exception, $model);
+
                 $errors[] = $error;
             }
 
-            $affected[] = $model;
+            $affected[] = $deleted;
         }
 
         if (! $errors) {
