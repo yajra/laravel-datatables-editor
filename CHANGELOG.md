@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v1.8.1] - 2019-08-24
+
+- Fill model before triggering the creating event.
+
 ## [v1.8.0] - 2019-06-06
 
 - Get some new attributes when calling hooks [#27], credits to @aminprox
