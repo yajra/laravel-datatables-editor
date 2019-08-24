@@ -58,7 +58,8 @@ abstract class DataTablesEditor
 
         $connection->beginTransaction();
         foreach ($request->get('data') as $data) {
-            $validator = $this->getValidationFactory()->make($data, $this->createRules(), $this->createMessages(), $this->attributes());
+            $validator = $this->getValidationFactory()
+                              ->make($data, $this->createRules(), $this->createMessages(), $this->attributes());
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -103,15 +104,15 @@ abstract class DataTablesEditor
     /**
      * Resolve model to used.
      *
-     * @return Model
+     * @return Model|\Illuminate\Database\Eloquent\SoftDeletes
      */
     protected function resolveModel()
     {
-        if ($this->model instanceof Model) {
-            return $this->model;
+        if (! $this->model instanceof Model) {
+            $this->model = new $this->model;
         }
 
-        return new $this->model;
+        return $this->model;
     }
 
     /**
@@ -174,15 +175,16 @@ abstract class DataTablesEditor
      */
     public function edit(Request $request)
     {
-        $instance   = $this->resolveModel();
-        $connection = $instance->getConnection();
+        $builder    = $this->getBuilder();
+        $connection = $builder->getConnection();
         $affected   = [];
         $errors     = [];
 
         $connection->beginTransaction();
         foreach ($request->get('data') as $key => $data) {
-            $model     = $instance->newQuery()->find($key);
-            $validator = $this->getValidationFactory()->make($data, $this->editRules($model), $this->editMessages(), $this->attributes());
+            $model     = $builder->findOrFail($key);
+            $validator = $this->getValidationFactory()
+                              ->make($data, $this->editRules($model), $this->editMessages(), $this->attributes());
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -223,6 +225,16 @@ abstract class DataTablesEditor
     }
 
     /**
+     * Get elqouent builder of the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    protected function getBuilder()
+    {
+        return $this->resolveModel()->newQuery();
+    }
+
+    /**
      * Get edit action validation rules.
      *
      * @param Model $model
@@ -248,14 +260,14 @@ abstract class DataTablesEditor
      */
     public function remove(Request $request)
     {
-        $instance   = $this->resolveModel();
-        $connection = $instance->getConnection();
+        $builder    = $this->getBuilder();
+        $connection = $builder->getConnection();
         $affected   = [];
         $errors     = [];
 
         $connection->beginTransaction();
         foreach ($request->get('data') as $key => $data) {
-            $model     = $instance->newQuery()->find($key);
+            $model     = $builder->findOrFail($key);
             $validator = $this->getValidationFactory()
                               ->make($data, $this->removeRules($model), $this->removeMessages(), $this->attributes());
             if ($validator->fails()) {
@@ -320,7 +332,7 @@ abstract class DataTablesEditor
      * Get remove query exception message.
      *
      * @param QueryException $exception
-     * @param Model          $model
+     * @param Model $model
      * @return string
      */
     protected function removeExceptionMessage(QueryException $exception, Model $model)
