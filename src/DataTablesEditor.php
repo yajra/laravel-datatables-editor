@@ -185,14 +185,14 @@ abstract class DataTablesEditor
      */
     public function edit(Request $request)
     {
-        $builder    = $this->getBuilder();
-        $connection = $builder->getConnection();
+        $connection = $this->getBuilder()->getConnection();
         $affected   = [];
         $errors     = [];
 
+
         $connection->beginTransaction();
         foreach ($request->get('data') as $key => $data) {
-            $model     = $builder->findOrFail($key);
+            $model     = $this->getBuilder()->findOrFail($key);
             $validator = $this->getValidationFactory()
                               ->make($data, $this->editRules($model), $this->editMessages(), $this->attributes());
             if ($validator->fails()) {
@@ -278,14 +278,13 @@ abstract class DataTablesEditor
      */
     public function remove(Request $request)
     {
-        $builder    = $this->getBuilder();
-        $connection = $builder->getConnection();
+        $connection = $this->getBuilder()->getConnection();
         $affected   = [];
         $errors     = [];
 
         $connection->beginTransaction();
         foreach ($request->get('data') as $key => $data) {
-            $model     = $builder->findOrFail($key);
+            $model     = $this->getBuilder()->findOrFail($key);
             $validator = $this->getValidationFactory()
                               ->make($data, $this->removeRules($model), $this->removeMessages(), $this->attributes());
             if ($validator->fails()) {
