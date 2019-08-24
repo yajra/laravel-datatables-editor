@@ -243,7 +243,13 @@ abstract class DataTablesEditor
      */
     protected function getBuilder()
     {
-        return $this->resolveModel()->newQuery();
+        $model = $this->resolveModel();
+
+        if (in_array(\Illuminate\Database\Eloquent\SoftDeletes::class, class_uses($model))) {
+            return $model->newQuery()->withTrashed();
+        }
+
+        return $model->newQuery();
     }
 
     /**
