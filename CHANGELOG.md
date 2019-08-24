@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v1.9.0] - 2019-08-24
+
+- Add initial support for SoftDeletes.
+- Fill model before firing updating event.
+- Clone model before deleting to record affected models.
+
 ## [v1.8.1] - 2019-08-24
 
 - Fill model before triggering the creating event.
