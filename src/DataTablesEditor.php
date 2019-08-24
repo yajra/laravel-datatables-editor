@@ -133,6 +133,16 @@ abstract class DataTablesEditor
     }
 
     /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [];
+    }
+
+    /**
      * @param Validator $validator
      * @return array
      */
@@ -379,15 +389,5 @@ abstract class DataTablesEditor
             'data'        => [],
             'fieldErrors' => $errors,
         ]);
-    }
-
-    /**
-     * Get custom attributes for validator errors.
-     *
-     * @return array
-     */
-    public function attributes()
-    {
-        return [];
     }
 }
