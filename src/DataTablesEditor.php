@@ -67,6 +67,8 @@ abstract class DataTablesEditor
                 continue;
             }
 
+            $instance->fill($data);
+
             if (method_exists($this, 'creating')) {
                 $data = $this->creating($instance, $data);
             }
@@ -75,18 +77,18 @@ abstract class DataTablesEditor
                 $data = $this->saving($instance, $data);
             }
 
-            $model = $instance->newQuery()->create($data);
+            $instance->save();
 
             if (method_exists($this, 'created')) {
-                $model = $this->created($model, $data);
+                $instance = $this->created($instance, $data);
             }
 
             if (method_exists($this, 'saved')) {
-                $model = $this->saved($model, $data);
+                $instance = $this->saved($instance, $data);
             }
 
-            $model->setAttribute('DT_RowId', $model->getKey());
-            $affected[] = $model;
+            $instance->setAttribute('DT_RowId', $instance->getKey());
+            $affected[] = $instance;
         }
 
         if (! $errors) {
