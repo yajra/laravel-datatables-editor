@@ -193,6 +193,8 @@ abstract class DataTablesEditor
                 continue;
             }
 
+            $model->fill($data);
+
             if (method_exists($this, 'updating')) {
                 $data = $this->updating($model, $data);
             }
@@ -201,7 +203,7 @@ abstract class DataTablesEditor
                 $data = $this->saving($model, $data);
             }
 
-            $model->update($data);
+            $model->save();
 
             if (method_exists($this, 'updated')) {
                 $model = $this->updated($model, $data);
