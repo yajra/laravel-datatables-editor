@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v1.9.1] - 2019-08-24
+
+- Fix bulk edit and remove.
+
 ## [v1.9.0] - 2019-08-24
 
 - Add initial support for SoftDeletes.
