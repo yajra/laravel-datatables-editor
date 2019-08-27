@@ -26,6 +26,13 @@ abstract class DataTablesEditor
     protected $model = null;
 
     /**
+     * Indicates if all mass assignment is enabled on model.
+     *
+     * @var bool
+     */
+    protected $unguarded = false;
+
+    /**
      * Process dataTables editor action request.
      *
      * @param Request $request
@@ -111,6 +118,8 @@ abstract class DataTablesEditor
         if (! $this->model instanceof Model) {
             $this->model = new $this->model;
         }
+
+        $this->model->unguard($this->unguarded);
 
         return $this->model;
     }
@@ -380,6 +389,19 @@ abstract class DataTablesEditor
     public function setModel($model)
     {
         $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Set model unguard state.
+     *
+     * @param bool $state
+     * @return $this
+     */
+    public function unguard($state = true)
+    {
+        $this->unguarded = $state;
 
         return $this;
     }
