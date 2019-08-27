@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v1.10.0] - 2019-08-27
+
+- Add unguarded property to allow mass assignment on model.
+
 ## [v1.9.1] - 2019-08-24
 
 - Fix bulk edit and remove.
