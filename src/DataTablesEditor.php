@@ -198,7 +198,6 @@ abstract class DataTablesEditor
         $affected   = [];
         $errors     = [];
 
-
         $connection->beginTransaction();
         foreach ($request->get('data') as $key => $data) {
             $model     = $this->getBuilder()->findOrFail($key);
