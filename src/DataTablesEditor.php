@@ -75,8 +75,6 @@ abstract class DataTablesEditor
                 continue;
             }
 
-            $instance->fill($data);
-
             if (method_exists($this, 'creating')) {
                 $data = $this->creating($instance, $data);
             }
@@ -85,7 +83,7 @@ abstract class DataTablesEditor
                 $data = $this->saving($instance, $data);
             }
 
-            $instance->save();
+            $instance->fill($data)->save();
 
             if (method_exists($this, 'created')) {
                 $instance = $this->created($instance, $data);
@@ -211,8 +209,6 @@ abstract class DataTablesEditor
                 continue;
             }
 
-            $model->fill($data);
-
             if (method_exists($this, 'updating')) {
                 $data = $this->updating($model, $data);
             }
@@ -221,7 +217,7 @@ abstract class DataTablesEditor
                 $data = $this->saving($model, $data);
             }
 
-            $model->save();
+            $model->fill($data)->save();
 
             if (method_exists($this, 'updated')) {
                 $model = $this->updated($model, $data);
