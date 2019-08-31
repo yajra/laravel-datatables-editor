@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v1.10.1] - 2019-08-31
+
+- Fix creating and saving hooks are not saving the $data changes. [#36], credits to @karmendra.
+
 ## [v1.10.0] - 2019-08-27
 
 - Add unguarded property to allow mass assignment on model.
