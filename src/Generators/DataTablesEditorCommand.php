@@ -12,7 +12,7 @@ class DataTablesEditorCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'datatables:editor 
+    protected $signature = 'datatables:editor
                             {name : The name of the dataTable editor.}
                             {--model : The name given will be used as the model is singular form.}
                             {--model-namespace= : The namespace of the model to be used.}';
@@ -70,7 +70,7 @@ class DataTablesEditorCommand extends GeneratorCommand
         $modelNamespace = $this->option('model-namespace') ? $this->option('model-namespace') : $this->laravel['config']->get('datatables-buttons.namespace.model');
 
         return $model
-            ? $rootNamespace . '\\' . ($modelNamespace ? $modelNamespace . '\\' : '') . str_singular($name)
+            ? $rootNamespace . '\\' . ($modelNamespace ? $modelNamespace . '\\' : '') . Str::singular($name)
             : $rootNamespace . '\\User';
     }
 
@@ -108,7 +108,7 @@ class DataTablesEditorCommand extends GeneratorCommand
     protected function replaceFilename(&$stub)
     {
         $stub = str_replace(
-            'DummyFilename', str_slug($this->getNameInput()), $stub
+            'DummyFilename', Str::slug($this->getNameInput()), $stub
         );
 
         return $stub;
