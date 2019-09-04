@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v1.11.0] - 2019-09-04
+
+- Add support for Laravel 6.
+
 ## [v1.10.1] - 2019-08-31
 
 - Fix creating and saving hooks are not saving the $data changes. [#36], credits to @karmendra.
