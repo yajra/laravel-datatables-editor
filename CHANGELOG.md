@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [v1.11.1] - 2019-09-06
+
+- Change type to `DataTableEditor` from `DataTablesEditor` to match core library naming convention.
+- ex: `UsersDataTable`, `UsersDataTableEditor`.
+
 ## [v1.11.0] - 2019-09-04
 
 - Add support for Laravel 6.
