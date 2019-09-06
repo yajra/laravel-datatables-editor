@@ -29,7 +29,7 @@ class DataTablesEditorCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $type = 'DataTablesEditor';
+    protected $type = 'DataTableEditor';
 
     /**
      * Build the class with the given name.
