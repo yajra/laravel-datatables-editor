@@ -445,12 +445,16 @@ abstract class DataTablesEditor
 
             return response()->json([
                 'data'   => [],
-                'file'   => [
-                    'filename'  => $id,
-                    'size'      => $request->file('upload')->getSize(),
-                    'directory' => $this->uploadDir,
-                    'disk'      => $this->disk,
-                    'url'       => $storage->url($id),
+                'files'   => [
+                    'files' => [
+                        $id => [
+                            'filename'  => $id,
+                            'size'      => $request->file('upload')->getSize(),
+                            'directory' => $this->uploadDir,
+                            'disk'      => $this->disk,
+                            'url'       => $storage->url($id),
+                        ]
+                    ]
                 ],
                 'upload' => [
                     'id' => $id,
