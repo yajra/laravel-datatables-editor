@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 abstract class DataTablesEditor
@@ -18,7 +20,7 @@ abstract class DataTablesEditor
      *
      * @var array
      */
-    protected $actions = ['create', 'edit', 'remove'];
+    protected $actions = ['create', 'edit', 'remove', 'upload'];
 
     /**
      * @var \Illuminate\Database\Eloquent\Model
@@ -31,6 +33,20 @@ abstract class DataTablesEditor
      * @var bool
      */
     protected $unguarded = false;
+
+    /**
+     * Upload directory relative to storage path.
+     *
+     * @var string
+     */
+    protected $uploadDir = 'editor';
+
+    /**
+     * Filesystem disk config to use for upload.
+     *
+     * @var string
+     */
+    protected $disk = 'public';
 
     /**
      * Process dataTables editor action request.
@@ -399,6 +415,76 @@ abstract class DataTablesEditor
         $this->unguarded = $state;
 
         return $this;
+    }
+
+    /**
+     * Handle uploading of file.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function upload(Request $request)
+    {
+        try {
+            $type       = $request->input('uploadField');
+            $filesystem = Storage::disk($this->disk);
+            $rules      = $this->uploadRules();
+            $fieldRules = ['upload' => data_get($rules, $type, [])];
+
+            $this->validate($request, $fieldRules, $this->uploadMessages(), $this->attributes());
+
+            $id = $filesystem->putFile($this->uploadDir, $request->file('upload'));
+
+            if (method_exists($this, 'uploaded')) {
+                $id = $this->uploaded($id);
+            }
+
+            return response()->json([
+                'data'   => [],
+                'file'   => [
+                    'filename'  => $id,
+                    'size'      => $request->file('upload')->getSize(),
+                    'directory' => $this->uploadDir,
+                    'disk'      => $this->disk,
+                    'url'       => $filesystem->url($id),
+                ],
+                'upload' => [
+                    'id' => $id,
+                ],
+            ]);
+        } catch (ValidationException $exception) {
+            $field = $request->get('uploadField');
+
+            return response()->json([
+                'data'        => [],
+                'fieldErrors' => [
+                    [
+                        'name'   => $field,
+                        'status' => str_replace('upload', $field, $exception->errors()['upload'][0]),
+                    ],
+                ],
+            ]);
+        }
+    }
+
+    /**
+     * Upload validation rules.
+     *
+     * @return array
+     */
+    public function uploadRules()
+    {
+        return [];
+    }
+
+    /**
+     * Upload validation messages.
+     *
+     * @return array
+     */
+    protected function uploadMessages()
+    {
+        return [];
     }
 
     /**
