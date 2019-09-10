@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v1.12.0] - 2019-09-10
+
+- Add support for handling field type upload and uploadMany. [#38]
+- Fix [#17].
+- Deprecated the following methods: createMessages(), editMessages(), removeMessages() and refactor it to one method messages().
+
 ## [v1.11.1] - 2019-09-06
 
 - Change type to `DataTableEditor` from `DataTablesEditor` to match core library naming convention.
@@ -104,7 +110,14 @@
 - CRUD pre / post events hooks.
 - Artisan command for DataTables Editor generation.
 
-[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.8.0...master
+[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.12.0...master
+[v1.12.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.11.1...v1.12.0
+[v1.11.1]: https://github.com/yajra/laravel-datatables-editor/compare/v1.11.0...v1.11.1
+[v1.11.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.10.1...v1.11.0
+[v1.10.1]: https://github.com/yajra/laravel-datatables-editor/compare/v1.10.0...v1.10.1
+[v1.10.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.9.1...v1.10.0
+[v1.9.1]: https://github.com/yajra/laravel-datatables-editor/compare/v1.9.0...v1.9.1
+[v1.9.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.8.0...v1.9.0
 [v1.8.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.7.0...v1.8.0
 [v1.7.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.6.1...v1.7.0
 [v1.6.1]: https://github.com/yajra/laravel-datatables-editor/compare/v1.6.0...v1.6.1
@@ -125,6 +138,8 @@
 [#27]: https://github.com/yajra/laravel-datatables-editor/pull/27
 [#29]: https://github.com/yajra/laravel-datatables-editor/pull/29
 [#31]: https://github.com/yajra/laravel-datatables-editor/pull/31
+[#38]: https://github.com/yajra/laravel-datatables-editor/pull/38
 
 [#13]: https://github.com/yajra/laravel-datatables-editor/issues/13
 [#24]: https://github.com/yajra/laravel-datatables-editor/issues/24
+[#17]: https://github.com/yajra/laravel-datatables-editor/issues/17
