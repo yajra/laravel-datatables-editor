@@ -82,7 +82,7 @@ abstract class DataTablesEditor
         $connection->beginTransaction();
         foreach ($request->get('data') as $data) {
             $validator = $this->getValidationFactory()
-                              ->make($data, $this->createRules(), $this->createMessages() + $this->messages(), $this->attributes());
+                              ->make($data, $this->createRules(),  $this->messages() + $this->createMessages(), $this->attributes());
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -217,7 +217,7 @@ abstract class DataTablesEditor
         foreach ($request->get('data') as $key => $data) {
             $model     = $this->getBuilder()->findOrFail($key);
             $validator = $this->getValidationFactory()
-                              ->make($data, $this->editRules($model), $this->editMessages() + $this->messages(), $this->attributes());
+                              ->make($data, $this->editRules($model), $this->messages() + $this->editMessages(), $this->attributes());
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -308,7 +308,7 @@ abstract class DataTablesEditor
         foreach ($request->get('data') as $key => $data) {
             $model     = $this->getBuilder()->findOrFail($key);
             $validator = $this->getValidationFactory()
-                              ->make($data, $this->removeRules($model), $this->removeMessages() + $this->messages(), $this->attributes());
+                              ->make($data, $this->removeRules($model), $this->messages() + $this->removeMessages(), $this->attributes());
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error['status'];
