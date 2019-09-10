@@ -425,15 +425,16 @@ abstract class DataTablesEditor
      */
     public function upload(Request $request)
     {
+        $field   = $request->input('uploadField');
+        $storage = Storage::disk($this->disk);
+
         try {
-            $type       = $request->input('uploadField');
-            $filesystem = Storage::disk($this->disk);
             $rules      = $this->uploadRules();
-            $fieldRules = ['upload' => data_get($rules, $type, [])];
+            $fieldRules = ['upload' => data_get($rules, $field, [])];
 
             $this->validate($request, $fieldRules, $this->uploadMessages(), $this->attributes());
 
-            $id = $filesystem->putFile($this->uploadDir, $request->file('upload'));
+            $id = $storage->putFile($this->uploadDir, $request->file('upload'));
 
             if (method_exists($this, 'uploaded')) {
                 $id = $this->uploaded($id);
@@ -446,15 +447,13 @@ abstract class DataTablesEditor
                     'size'      => $request->file('upload')->getSize(),
                     'directory' => $this->uploadDir,
                     'disk'      => $this->disk,
-                    'url'       => $filesystem->url($id),
+                    'url'       => $storage->url($id),
                 ],
                 'upload' => [
                     'id' => $id,
                 ],
             ]);
         } catch (ValidationException $exception) {
-            $field = $request->get('uploadField');
-
             return response()->json([
                 'data'        => [],
                 'fieldErrors' => [
