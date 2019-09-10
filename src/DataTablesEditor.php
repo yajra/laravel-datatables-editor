@@ -82,7 +82,7 @@ abstract class DataTablesEditor
         $connection->beginTransaction();
         foreach ($request->get('data') as $data) {
             $validator = $this->getValidationFactory()
-                              ->make($data, $this->createRules(), $this->createMessages(), $this->attributes());
+                              ->make($data, $this->createRules(), $this->createMessages() + $this->messages(), $this->attributes());
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -148,6 +148,7 @@ abstract class DataTablesEditor
     /**
      * Get create validation messages.
      *
+     * @deprecated deprecated since v1.12.0, please use messages() instead.
      * @return array
      */
     protected function createMessages()
@@ -216,7 +217,7 @@ abstract class DataTablesEditor
         foreach ($request->get('data') as $key => $data) {
             $model     = $this->getBuilder()->findOrFail($key);
             $validator = $this->getValidationFactory()
-                              ->make($data, $this->editRules($model), $this->editMessages(), $this->attributes());
+                              ->make($data, $this->editRules($model), $this->editMessages() + $this->messages(), $this->attributes());
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -283,6 +284,7 @@ abstract class DataTablesEditor
     /**
      * Get edit validation messages.
      *
+     * @deprecated deprecated since v1.12.0, please use messages() instead.
      * @return array
      */
     protected function editMessages()
@@ -306,7 +308,7 @@ abstract class DataTablesEditor
         foreach ($request->get('data') as $key => $data) {
             $model     = $this->getBuilder()->findOrFail($key);
             $validator = $this->getValidationFactory()
-                              ->make($data, $this->removeRules($model), $this->removeMessages(), $this->attributes());
+                              ->make($data, $this->removeRules($model), $this->removeMessages() + $this->messages(), $this->attributes());
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error['status'];
@@ -362,6 +364,7 @@ abstract class DataTablesEditor
     /**
      * Get remove validation messages.
      *
+     * @deprecated deprecated since v1.12.0, please use messages() instead.
      * @return array
      */
     protected function removeMessages()
@@ -477,11 +480,11 @@ abstract class DataTablesEditor
     }
 
     /**
-     * Upload validation messages.
+     * Get validation messages.
      *
      * @return array
      */
-    protected function uploadMessages()
+    protected function messages()
     {
         return [];
     }
