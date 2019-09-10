@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v1.12.2] - 2019-09-10
+
+- Fix response to match the demo json structure.
+
 ## [v1.12.1] - 2019-09-10
 
 - Fix upload messages.
