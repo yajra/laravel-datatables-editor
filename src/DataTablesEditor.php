@@ -435,7 +435,7 @@ abstract class DataTablesEditor
             $rules      = $this->uploadRules();
             $fieldRules = ['upload' => data_get($rules, $field, [])];
 
-            $this->validate($request, $fieldRules, $this->uploadMessages(), $this->attributes());
+            $this->validate($request, $fieldRules, $this->messages(), $this->attributes());
 
             $id = $storage->putFile($this->uploadDir, $request->file('upload'));
 
