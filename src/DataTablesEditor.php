@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 abstract class DataTablesEditor
@@ -18,7 +20,7 @@ abstract class DataTablesEditor
      *
      * @var array
      */
-    protected $actions = ['create', 'edit', 'remove'];
+    protected $actions = ['create', 'edit', 'remove', 'upload'];
 
     /**
      * @var \Illuminate\Database\Eloquent\Model
@@ -31,6 +33,20 @@ abstract class DataTablesEditor
      * @var bool
      */
     protected $unguarded = false;
+
+    /**
+     * Upload directory relative to storage path.
+     *
+     * @var string
+     */
+    protected $uploadDir = 'editor';
+
+    /**
+     * Filesystem disk config to use for upload.
+     *
+     * @var string
+     */
+    protected $disk = 'public';
 
     /**
      * Process dataTables editor action request.
@@ -66,7 +82,7 @@ abstract class DataTablesEditor
         $connection->beginTransaction();
         foreach ($request->get('data') as $data) {
             $validator = $this->getValidationFactory()
-                              ->make($data, $this->createRules(), $this->createMessages(), $this->attributes());
+                              ->make($data, $this->createRules(), $this->messages() + $this->createMessages(), $this->attributes());
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -132,6 +148,7 @@ abstract class DataTablesEditor
     /**
      * Get create validation messages.
      *
+     * @deprecated deprecated since v1.12.0, please use messages() instead.
      * @return array
      */
     protected function createMessages()
@@ -200,7 +217,7 @@ abstract class DataTablesEditor
         foreach ($request->get('data') as $key => $data) {
             $model     = $this->getBuilder()->findOrFail($key);
             $validator = $this->getValidationFactory()
-                              ->make($data, $this->editRules($model), $this->editMessages(), $this->attributes());
+                              ->make($data, $this->editRules($model), $this->messages() + $this->editMessages(), $this->attributes());
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -267,6 +284,7 @@ abstract class DataTablesEditor
     /**
      * Get edit validation messages.
      *
+     * @deprecated deprecated since v1.12.0, please use messages() instead.
      * @return array
      */
     protected function editMessages()
@@ -290,7 +308,7 @@ abstract class DataTablesEditor
         foreach ($request->get('data') as $key => $data) {
             $model     = $this->getBuilder()->findOrFail($key);
             $validator = $this->getValidationFactory()
-                              ->make($data, $this->removeRules($model), $this->removeMessages(), $this->attributes());
+                              ->make($data, $this->removeRules($model), $this->messages() + $this->removeMessages(), $this->attributes());
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error['status'];
@@ -346,6 +364,7 @@ abstract class DataTablesEditor
     /**
      * Get remove validation messages.
      *
+     * @deprecated deprecated since v1.12.0, please use messages() instead.
      * @return array
      */
     protected function removeMessages()
@@ -399,6 +418,75 @@ abstract class DataTablesEditor
         $this->unguarded = $state;
 
         return $this;
+    }
+
+    /**
+     * Handle uploading of file.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function upload(Request $request)
+    {
+        $field   = $request->input('uploadField');
+        $storage = Storage::disk($this->disk);
+
+        try {
+            $rules      = $this->uploadRules();
+            $fieldRules = ['upload' => data_get($rules, $field, [])];
+
+            $this->validate($request, $fieldRules, $this->uploadMessages(), $this->attributes());
+
+            $id = $storage->putFile($this->uploadDir, $request->file('upload'));
+
+            if (method_exists($this, 'uploaded')) {
+                $id = $this->uploaded($id);
+            }
+
+            return response()->json([
+                'data'   => [],
+                'file'   => [
+                    'filename'  => $id,
+                    'size'      => $request->file('upload')->getSize(),
+                    'directory' => $this->uploadDir,
+                    'disk'      => $this->disk,
+                    'url'       => $storage->url($id),
+                ],
+                'upload' => [
+                    'id' => $id,
+                ],
+            ]);
+        } catch (ValidationException $exception) {
+            return response()->json([
+                'data'        => [],
+                'fieldErrors' => [
+                    [
+                        'name'   => $field,
+                        'status' => str_replace('upload', $field, $exception->errors()['upload'][0]),
+                    ],
+                ],
+            ]);
+        }
+    }
+
+    /**
+     * Upload validation rules.
+     *
+     * @return array
+     */
+    public function uploadRules()
+    {
+        return [];
+    }
+
+    /**
+     * Get validation messages.
+     *
+     * @return array
+     */
+    protected function messages()
+    {
+        return [];
     }
 
     /**
