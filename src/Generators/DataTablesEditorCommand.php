@@ -96,7 +96,9 @@ class DataTablesEditorCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/stubs/editor.stub';
+        $path = $this->laravel['config']->get('datatables-buttons.stub');
+
+        return $path ? base_path($path) . '/editor.stub' : __DIR__ . '/stubs/editor.stub';
     }
 
     /**
