@@ -19,7 +19,7 @@ class DummyClass extends DataTablesEditor
     public function createRules()
     {
         return [
-            'email' => 'required|email|unique:' . app($this->model)->getTable(),
+            'email' => 'required|email|unique:' . (new $this->model)->getTable(),
             'name'  => 'required',
         ];
     }
