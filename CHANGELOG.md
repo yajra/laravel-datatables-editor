@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v1.13.1] - 2019-09-12
+
+- Fix stub for getting table name.
+
 ## [v1.13.0] - 2019-09-12
 
 - Allow setting of custom stub path from buttons package config.
@@ -123,7 +127,8 @@
 - CRUD pre / post events hooks.
 - Artisan command for DataTables Editor generation.
 
-[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.13.0...master
+[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.13.1...master
+[v1.13.1]: https://github.com/yajra/laravel-datatables-editor/compare/v1.13.0...v1.13.1
 [v1.13.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.12.1...v1.13.0
 [v1.12.1]: https://github.com/yajra/laravel-datatables-editor/compare/v1.12.0...v1.12.1
 [v1.12.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.11.1...v1.12.0
