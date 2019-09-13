@@ -20,7 +20,7 @@ abstract class DataTablesEditor
      *
      * @var array
      */
-    protected $actions = ['create', 'edit', 'remove', 'upload'];
+    protected $actions = ['create', 'edit', 'remove', 'upload', 'forceDelete'];
 
     /**
      * @var \Illuminate\Database\Eloquent\Model
@@ -40,6 +40,13 @@ abstract class DataTablesEditor
      * @var string
      */
     protected $uploadDir = 'editor';
+
+    /**
+     * Flag to force delete a model.
+     *
+     * @var bool
+     */
+    protected $forceDeleting = false;
 
     /**
      * Filesystem disk config to use for upload.
@@ -293,6 +300,19 @@ abstract class DataTablesEditor
     }
 
     /**
+     * Process force delete action request.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function forceDelete(Request $request)
+    {
+        $this->forceDeleting = true;
+
+        return $this->remove($request);
+    }
+
+    /**
      * Process remove action request.
      *
      * @param Request $request
@@ -323,7 +343,7 @@ abstract class DataTablesEditor
                     $this->deleting($model, $data);
                 }
 
-                $model->delete();
+                $this->forceDeleting ? $model->forceDelete() : $model->delete();
 
                 if (method_exists($this, 'deleted')) {
                     $this->deleted($deleted, $data);
