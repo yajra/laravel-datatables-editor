@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [v1.14.0] - 2019-09-13
+
+- Add support for `forceDelete` action.
+- Requires https://github.com/yajra/laravel-datatables-assets/blob/master/js/buttons/forceDelete.js.
+
 ## [v1.13.1] - 2019-09-12
 
 - Fix stub for getting table name.
