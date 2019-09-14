@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v1.14.1] - 2019-09-14
+
+- Fix unknown column DT_RowId error when doing batch insert.
+
 ## [v1.14.0] - 2019-09-13
 
 - Add support for `forceDelete` action.
@@ -132,7 +136,8 @@
 - CRUD pre / post events hooks.
 - Artisan command for DataTables Editor generation.
 
-[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.14.0...master
+[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.14.1...master
+[v1.14.1]: https://github.com/yajra/laravel-datatables-editor/compare/v1.14.0...v1.14.1
 [v1.14.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.13.1...v1.14.0
 [v1.13.1]: https://github.com/yajra/laravel-datatables-editor/compare/v1.13.0...v1.13.1
 [v1.13.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.12.1...v1.13.0
