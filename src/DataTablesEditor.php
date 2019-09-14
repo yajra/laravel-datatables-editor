@@ -81,15 +81,20 @@ abstract class DataTablesEditor
      */
     public function create(Request $request)
     {
-        $instance   = $this->resolveModel();
-        $connection = $instance->getConnection();
+        $model      = $this->resolveModel();
+        $connection = $model->getConnection();
         $affected   = [];
         $errors     = [];
 
         $connection->beginTransaction();
         foreach ($request->get('data') as $data) {
+            $instance  = $model->newInstance();
             $validator = $this->getValidationFactory()
-                              ->make($data, $this->createRules(), $this->messages() + $this->createMessages(), $this->attributes());
+                              ->make(
+                                  $data,
+                                  $this->createRules(), $this->messages() + $this->createMessages(),
+                                  $this->attributes()
+                              );
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
