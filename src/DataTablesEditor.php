@@ -20,7 +20,14 @@ abstract class DataTablesEditor
      *
      * @var array
      */
-    protected $actions = ['create', 'edit', 'remove', 'upload', 'forceDelete', 'restore'];
+    protected $actions = [
+        'create',
+        'edit',
+        'remove',
+        'upload',
+        'forceDelete',
+        'restore',
+    ];
 
     /**
      * @var \Illuminate\Database\Eloquent\Model
@@ -165,10 +172,20 @@ abstract class DataTablesEditor
     abstract public function createRules();
 
     /**
+     * Get validation messages.
+     *
+     * @return array
+     */
+    protected function messages()
+    {
+        return [];
+    }
+
+    /**
      * Get create validation messages.
      *
-     * @deprecated deprecated since v1.12.0, please use messages() instead.
      * @return array
+     * @deprecated deprecated since v1.12.0, please use messages() instead.
      */
     protected function createMessages()
     {
@@ -221,6 +238,19 @@ abstract class DataTablesEditor
     }
 
     /**
+     * Process restore action request.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function restore(Request $request)
+    {
+        $this->restoring = true;
+
+        return $this->edit($request);
+    }
+
+    /**
      * Process edit action request.
      *
      * @param Request $request
@@ -236,7 +266,11 @@ abstract class DataTablesEditor
         foreach ($request->get('data') as $key => $data) {
             $model     = $this->getBuilder()->findOrFail($key);
             $validator = $this->getValidationFactory()
-                              ->make($data, $this->editRules($model), $this->messages() + $this->editMessages(), $this->attributes());
+                              ->make(
+                                  $data,
+                                  $this->editRules($model), $this->messages() + $this->editMessages(),
+                                  $this->attributes()
+                              );
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -303,25 +337,12 @@ abstract class DataTablesEditor
     /**
      * Get edit validation messages.
      *
-     * @deprecated deprecated since v1.12.0, please use messages() instead.
      * @return array
+     * @deprecated deprecated since v1.12.0, please use messages() instead.
      */
     protected function editMessages()
     {
         return [];
-    }
-
-    /**
-     * Process restore action request.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function restore(Request $request)
-    {
-        $this->restoring = true;
-
-        return $this->edit($request);
     }
 
     /**
@@ -353,7 +374,11 @@ abstract class DataTablesEditor
         foreach ($request->get('data') as $key => $data) {
             $model     = $this->getBuilder()->findOrFail($key);
             $validator = $this->getValidationFactory()
-                              ->make($data, $this->removeRules($model), $this->messages() + $this->removeMessages(), $this->attributes());
+                              ->make(
+                                  $data,
+                                  $this->removeRules($model), $this->messages() + $this->removeMessages(),
+                                  $this->attributes()
+                              );
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error['status'];
@@ -409,8 +434,8 @@ abstract class DataTablesEditor
     /**
      * Get remove validation messages.
      *
-     * @deprecated deprecated since v1.12.0, please use messages() instead.
      * @return array
+     * @deprecated deprecated since v1.12.0, please use messages() instead.
      */
     protected function removeMessages()
     {
@@ -490,7 +515,7 @@ abstract class DataTablesEditor
 
             return response()->json([
                 'data'   => [],
-                'files'   => [
+                'files'  => [
                     'files' => [
                         $id => [
                             'filename'  => $id,
@@ -498,8 +523,8 @@ abstract class DataTablesEditor
                             'directory' => $this->uploadDir,
                             'disk'      => $this->disk,
                             'url'       => $storage->url($id),
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
                 'upload' => [
                     'id' => $id,
@@ -524,16 +549,6 @@ abstract class DataTablesEditor
      * @return array
      */
     public function uploadRules()
-    {
-        return [];
-    }
-
-    /**
-     * Get validation messages.
-     *
-     * @return array
-     */
-    protected function messages()
     {
         return [];
     }
