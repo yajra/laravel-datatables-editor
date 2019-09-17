@@ -20,7 +20,7 @@ abstract class DataTablesEditor
      *
      * @var array
      */
-    protected $actions = ['create', 'edit', 'remove', 'upload', 'forceDelete'];
+    protected $actions = ['create', 'edit', 'remove', 'upload', 'forceDelete', 'restore'];
 
     /**
      * @var \Illuminate\Database\Eloquent\Model
@@ -47,6 +47,13 @@ abstract class DataTablesEditor
      * @var bool
      */
     protected $forceDeleting = false;
+
+    /**
+     * Flag to restore a model from deleted state.
+     *
+     * @var bool
+     */
+    protected $restoring = false;
 
     /**
      * Filesystem disk config to use for upload.
@@ -246,7 +253,7 @@ abstract class DataTablesEditor
                 $data = $this->saving($model, $data);
             }
 
-            $model->fill($data)->save();
+            $this->restoring ? $model->restore() : $model->fill($data)->save();
 
             if (method_exists($this, 'updated')) {
                 $model = $this->updated($model, $data);
@@ -302,6 +309,19 @@ abstract class DataTablesEditor
     protected function editMessages()
     {
         return [];
+    }
+
+    /**
+     * Process restore action request.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function restore(Request $request)
+    {
+        $this->restoring = true;
+
+        return $this->edit($request);
     }
 
     /**
