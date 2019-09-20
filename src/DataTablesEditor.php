@@ -70,6 +70,13 @@ abstract class DataTablesEditor
     protected $disk = 'public';
 
     /**
+     * Current request data that is being processed.
+     *
+     * @var array
+     */
+    protected $currentData = [];
+
+    /**
      * Process dataTables editor action request.
      *
      * @param Request $request
@@ -92,6 +99,7 @@ abstract class DataTablesEditor
      *
      * @param Request $request
      * @return JsonResponse
+     * @throws \Exception
      */
     public function create(Request $request)
     {
@@ -102,6 +110,8 @@ abstract class DataTablesEditor
 
         $connection->beginTransaction();
         foreach ($request->get('data') as $data) {
+            $this->currentData = $data;
+
             $instance  = $model->newInstance();
             $validator = $this->getValidationFactory()
                               ->make(
@@ -264,6 +274,8 @@ abstract class DataTablesEditor
 
         $connection->beginTransaction();
         foreach ($request->get('data') as $key => $data) {
+            $this->currentData = $data;
+
             $model     = $this->getBuilder()->findOrFail($key);
             $validator = $this->getValidationFactory()
                               ->make(
@@ -363,6 +375,7 @@ abstract class DataTablesEditor
      *
      * @param Request $request
      * @return JsonResponse
+     * @throws \Exception
      */
     public function remove(Request $request)
     {
@@ -372,6 +385,8 @@ abstract class DataTablesEditor
 
         $connection->beginTransaction();
         foreach ($request->get('data') as $key => $data) {
+            $this->currentData = $data;
+
             $model     = $this->getBuilder()->findOrFail($key);
             $validator = $this->getValidationFactory()
                               ->make(
