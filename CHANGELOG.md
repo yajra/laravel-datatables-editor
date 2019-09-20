@@ -2,6 +2,17 @@
 
 ## [Unreleased]
 
+## [v1.16.0] - 2019-09-20
+
+- Add tracker for current data that is being processed by editor.
+- Useful when validation requires value from another data.
+
+```php
+Rule::unique($model->getTable())
+    ->where('employee_id', $this->currentData['employee_id'])
+    ->ignore($model->getKey()),
+```
+
 ## [v1.15.0] - 2019-09-17
 
 - Add support for `restore` action.
@@ -141,7 +152,8 @@
 - CRUD pre / post events hooks.
 - Artisan command for DataTables Editor generation.
 
-[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.15.0...master
+[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.16.0...master
+[v1.16.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.15.0...v1.16.0
 [v1.15.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.14.1...v1.15.0
 [v1.14.1]: https://github.com/yajra/laravel-datatables-editor/compare/v1.14.0...v1.14.1
 [v1.14.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.13.1...v1.14.0
