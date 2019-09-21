@@ -2,6 +2,7 @@
 
 namespace Yajra\DataTables;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\Model;
@@ -91,7 +92,11 @@ abstract class DataTablesEditor
             throw new DataTablesEditorException('Requested action not supported!');
         }
 
-        return $this->{$action}($request);
+        try {
+            return $this->{$action}($request);
+        } catch (Exception $exception) {
+            return $this->toJson([], [], '<strong>Server Error:</strong> ' . $exception->getMessage());
+        }
     }
 
     /**
@@ -235,11 +240,17 @@ abstract class DataTablesEditor
      *
      * @param array $data
      * @param array $errors
+     * @param string $error
      * @return JsonResponse
      */
-    protected function toJson(array $data, array $errors = [])
+    protected function toJson(array $data, array $errors = [], $error = '')
     {
-        $response = ['data' => $data];
+        $response = ['data'  => $data];
+
+        if ($error) {
+            $response['error'] = $error;
+        }
+
         if ($errors) {
             $response['fieldErrors'] = $errors;
         }
@@ -414,8 +425,9 @@ abstract class DataTablesEditor
                     $this->deleted($deleted, $data);
                 }
             } catch (QueryException $exception) {
+
                 $error = config('app.debug')
-                    ? $exception->errorInfo[2]
+                    ? $exception->getMessage()
                     : $this->removeExceptionMessage($exception, $model);
 
                 $errors[] = $error;
@@ -435,7 +447,7 @@ abstract class DataTablesEditor
             $response['error'] = implode("\n", $errors);
         }
 
-        return new JsonResponse($response, 200);
+        return $this->toJson($affected, [], $errors ?? '');
     }
 
     /**
