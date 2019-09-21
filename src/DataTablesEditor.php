@@ -100,6 +100,8 @@ abstract class DataTablesEditor
                 ? '<strong>Server Error:</strong> ' . $exception->getMessage()
                 : $this->getUseFriendlyErrorMessage();
 
+            app('log')->error($exception);
+
             return $this->toJson([], [], $error);
         }
     }
