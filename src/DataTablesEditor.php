@@ -593,20 +593,4 @@ abstract class DataTablesEditor
     {
         return [];
     }
-
-    /**
-     * Display dataTables editor validation errors.
-     *
-     * @param Validator $validator
-     * @return JsonResponse
-     */
-    protected function displayValidationErrors(Validator $validator)
-    {
-        $errors = $this->formatErrors($validator);
-
-        return new JsonResponse([
-            'data'        => [],
-            'fieldErrors' => $errors,
-        ]);
-    }
 }
