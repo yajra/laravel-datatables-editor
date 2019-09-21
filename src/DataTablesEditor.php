@@ -96,8 +96,20 @@ abstract class DataTablesEditor
         try {
             return $this->{$action}($request);
         } catch (Exception $exception) {
-            return $this->toJson([], [], '<strong>Server Error:</strong> ' . $exception->getMessage());
+            $error = config('app.debug')
+                ? '<strong>Server Error:</strong> ' . $exception->getMessage()
+                : $this->getUseFriendlyErrorMessage();
+
+            return $this->toJson([], [], $error);
         }
+    }
+
+    /**
+     * @return string
+     */
+    protected function getUseFriendlyErrorMessage()
+    {
+        return 'An error occurs while processing your request.';
     }
 
     /**
