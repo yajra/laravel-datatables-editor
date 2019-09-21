@@ -439,7 +439,6 @@ abstract class DataTablesEditor
                     $this->deleted($deleted, $data);
                 }
             } catch (QueryException $exception) {
-
                 $error = config('app.debug')
                     ? $exception->getMessage()
                     : $this->removeExceptionMessage($exception, $model);
