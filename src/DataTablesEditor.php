@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -97,6 +98,29 @@ abstract class DataTablesEditor
         } catch (Exception $exception) {
             return $this->toJson([], [], '<strong>Server Error:</strong> ' . $exception->getMessage());
         }
+    }
+
+    /**
+     * Display success data in dataTables editor format.
+     *
+     * @param array $data
+     * @param array $errors
+     * @param string $error
+     * @return JsonResponse
+     */
+    protected function toJson(array $data, array $errors = [], $error = '')
+    {
+        $response = ['data' => $data];
+
+        if ($error) {
+            $response['error'] = $error;
+        }
+
+        if ($errors) {
+            $response['fieldErrors'] = $errors;
+        }
+
+        return new JsonResponse($response, 200);
     }
 
     /**
@@ -236,29 +260,6 @@ abstract class DataTablesEditor
     }
 
     /**
-     * Display success data in dataTables editor format.
-     *
-     * @param array $data
-     * @param array $errors
-     * @param string $error
-     * @return JsonResponse
-     */
-    protected function toJson(array $data, array $errors = [], $error = '')
-    {
-        $response = ['data'  => $data];
-
-        if ($error) {
-            $response['error'] = $error;
-        }
-
-        if ($errors) {
-            $response['fieldErrors'] = $errors;
-        }
-
-        return new JsonResponse($response, 200);
-    }
-
-    /**
      * Process restore action request.
      *
      * @param \Illuminate\Http\Request $request
@@ -342,7 +343,7 @@ abstract class DataTablesEditor
     {
         $model = $this->resolveModel();
 
-        if (in_array(\Illuminate\Database\Eloquent\SoftDeletes::class, class_uses($model))) {
+        if (in_array(SoftDeletes::class, class_uses($model))) {
             return $model->newQuery()->withTrashed();
         }
 
@@ -373,6 +374,7 @@ abstract class DataTablesEditor
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function forceDelete(Request $request)
     {
