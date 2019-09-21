@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v1.17.0] - 2019-09-21
+
+- Add server error handler for all actions.
+- Change toJson method signature to: `toJson(array $data, array $errors = [], $error = '')`.
+- Remove unused method `displayValidationErrors`.
+
 ## [v1.16.0] - 2019-09-20
 
 - Add tracker for current data that is being processed by editor.
@@ -152,7 +158,8 @@ Rule::unique($model->getTable())
 - CRUD pre / post events hooks.
 - Artisan command for DataTables Editor generation.
 
-[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.16.0...master
+[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.17.0...master
+[v1.17.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.16.0...v1.17.0
 [v1.16.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.15.0...v1.16.0
 [v1.15.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.14.1...v1.15.0
 [v1.14.1]: https://github.com/yajra/laravel-datatables-editor/compare/v1.14.0...v1.14.1
