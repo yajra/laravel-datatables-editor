@@ -560,11 +560,12 @@ abstract class DataTablesEditor
                 'files'  => [
                     'files' => [
                         $id => [
-                            'filename'  => $id,
-                            'size'      => $request->file('upload')->getSize(),
-                            'directory' => $this->uploadDir,
-                            'disk'      => $this->disk,
-                            'url'       => $storage->url($id),
+                            'filename'      => $id,
+                            'original_name' => $request->file('upload')->getClientOriginalName(),
+                            'size'          => $request->file('upload')->getSize(),
+                            'directory'     => $this->uploadDir,
+                            'disk'          => $this->disk,
+                            'url'           => $storage->url($id),
                         ],
                     ],
                 ],
