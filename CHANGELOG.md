@@ -166,7 +166,8 @@ Rule::unique($model->getTable())
 - CRUD pre / post events hooks.
 - Artisan command for DataTables Editor generation.
 
-[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.17.1...master
+[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.18.0...master
+[v1.18.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.17.1...v1.18.0
 [v1.17.1]: https://github.com/yajra/laravel-datatables-editor/compare/v1.17.0...v1.17.1
 [v1.17.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.16.0...v1.17.0
 [v1.16.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.15.0...v1.16.0
