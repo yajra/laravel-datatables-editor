@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v1.18.0] - 2020-02-01
+
+- Include file original name on upload response.
+
 ## [v1.17.1] - 2019-09-21
 
 - Log exception for further debugging and error tracking.
