@@ -549,7 +549,9 @@ abstract class DataTablesEditor
 
             $this->validate($request, $fieldRules, $this->messages(), $this->attributes());
 
-            $id = $storage->putFile($this->uploadDir, $request->file('upload'));
+            $uploadedFile = $request->file('upload');
+            $filename     = date('Ymd_His') . '_' . $uploadedFile->getClientOriginalName();
+            $id           = $storage->putFileAs($this->uploadDir, $uploadedFile, $filename);
 
             if (method_exists($this, 'uploaded')) {
                 $id = $this->uploaded($id);
@@ -561,8 +563,8 @@ abstract class DataTablesEditor
                     'files' => [
                         $id => [
                             'filename'      => $id,
-                            'original_name' => $request->file('upload')->getClientOriginalName(),
-                            'size'          => $request->file('upload')->getSize(),
+                            'original_name' => $uploadedFile->getClientOriginalName(),
+                            'size'          => $uploadedFile->getSize(),
                             'directory'     => $this->uploadDir,
                             'disk'          => $this->disk,
                             'url'           => $storage->url($id),
