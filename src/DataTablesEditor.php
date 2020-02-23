@@ -5,6 +5,7 @@ namespace Yajra\DataTables;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
@@ -550,7 +551,7 @@ abstract class DataTablesEditor
             $this->validate($request, $fieldRules, $this->messages(), $this->attributes());
 
             $uploadedFile = $request->file('upload');
-            $filename     = date('Ymd_His') . '_' . $uploadedFile->getClientOriginalName();
+            $filename     = $this->getUploadedFilename($field, $uploadedFile);
             $id           = $storage->putFileAs($this->uploadDir, $uploadedFile, $filename);
 
             if (method_exists($this, 'uploaded')) {
@@ -596,5 +597,15 @@ abstract class DataTablesEditor
     public function uploadRules()
     {
         return [];
+    }
+
+    /**
+     * @param string $field
+     * @param UploadedFile $uploadedFile
+     * @return string
+     */
+    protected function getUploadedFilename($field, UploadedFile $uploadedFile)
+    {
+        return date('Ymd_His') . '_' . $uploadedFile->getClientOriginalName();
     }
 }
