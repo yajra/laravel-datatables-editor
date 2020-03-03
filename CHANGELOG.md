@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v1.20.0] - 2020-03-04
+
+- Allow Laravel 7.
+
 ## [v1.19.0] - 2020-02-23
 
 - Fix & use original client name when uploading file.
