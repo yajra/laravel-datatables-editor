@@ -19,6 +19,13 @@ abstract class DataTablesEditor
     use ValidatesRequests;
 
     /**
+     * Action performed by the editor.
+     *
+     * @var string|null
+     */
+    protected $action = null;
+
+    /**
      * Allowed dataTables editor actions.
      *
      * @var array
@@ -125,7 +132,10 @@ abstract class DataTablesEditor
      */
     protected function toJson(array $data, array $errors = [], $error = '')
     {
-        $response = ['data' => $data];
+        $response = [
+            'action' => $this->action,
+            'data'   => $data,
+        ];
 
         if ($error) {
             $response['error'] = $error;
@@ -147,6 +157,8 @@ abstract class DataTablesEditor
      */
     public function create(Request $request)
     {
+        $this->action = $this->action ?? 'create';
+
         $model      = $this->resolveModel();
         $connection = $model->getConnection();
         $affected   = [];
@@ -282,6 +294,8 @@ abstract class DataTablesEditor
      */
     public function restore(Request $request)
     {
+        $this->action = 'restore';
+
         $this->restoring = true;
 
         return $this->edit($request);
@@ -295,6 +309,8 @@ abstract class DataTablesEditor
      */
     public function edit(Request $request)
     {
+        $this->action = $this->action ?? 'edit';
+
         $connection = $this->getBuilder()->getConnection();
         $affected   = [];
         $errors     = [];
@@ -393,6 +409,8 @@ abstract class DataTablesEditor
      */
     public function forceDelete(Request $request)
     {
+        $this->action = 'forceDelete';
+
         $this->forceDeleting = true;
 
         return $this->remove($request);
@@ -407,6 +425,8 @@ abstract class DataTablesEditor
      */
     public function remove(Request $request)
     {
+        $this->action = $this->action ?? 'remove';
+
         $connection = $this->getBuilder()->getConnection();
         $affected   = [];
         $errors     = [];
@@ -541,6 +561,8 @@ abstract class DataTablesEditor
      */
     public function upload(Request $request)
     {
+        $this->action = 'upload';
+
         $field   = $request->input('uploadField');
         $storage = Storage::disk($this->disk);
 
@@ -559,6 +581,7 @@ abstract class DataTablesEditor
             }
 
             return response()->json([
+                'action' => $this->action,
                 'data'   => [],
                 'files'  => [
                     'files' => [
@@ -578,6 +601,7 @@ abstract class DataTablesEditor
             ]);
         } catch (ValidationException $exception) {
             return response()->json([
+                'action'      => $this->action,
                 'data'        => [],
                 'fieldErrors' => [
                     [
