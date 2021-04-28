@@ -40,6 +40,13 @@ abstract class DataTablesEditor
     ];
 
     /**
+     * List of custom editor actions.
+     *
+     * @var array
+     */
+    protected $customActions = [];
+
+    /**
      * @var \Illuminate\Database\Eloquent\Model
      */
     protected $model = null;
@@ -95,14 +102,18 @@ abstract class DataTablesEditor
      */
     public function process(Request $request)
     {
-        $action = $request->get('action');
+        $this->action = $request->get('action');
 
-        if (! in_array($action, $this->actions)) {
-            throw new DataTablesEditorException('Requested action not supported!');
+        if (! in_array($this->action, array_merge($this->actions, $this->customActions))) {
+            if ($request->wantsJson()) {
+                return $this->toJson([], [], sprintf('Requested action (%s) not supported!', $this->action));
+            } else {
+                throw new DataTablesEditorException('Requested action not supported!');
+            }
         }
 
         try {
-            return $this->{$action}($request);
+            return $this->{$this->action}($request);
         } catch (Exception $exception) {
             $error = config('app.debug')
                 ? '<strong>Server Error:</strong> ' . $exception->getMessage()
@@ -132,20 +143,24 @@ abstract class DataTablesEditor
      */
     protected function toJson(array $data, array $errors = [], $error = '')
     {
+        $code = 200;
+
         $response = [
             'action' => $this->action,
             'data'   => $data,
         ];
 
         if ($error) {
+            $code = 422;
             $response['error'] = $error;
         }
 
         if ($errors) {
+            $code = 422;
             $response['fieldErrors'] = $errors;
         }
 
-        return new JsonResponse($response, 200);
+        return new JsonResponse($response, $code);
     }
 
     /**
@@ -157,8 +172,6 @@ abstract class DataTablesEditor
      */
     public function create(Request $request)
     {
-        $this->action = $this->action ?? 'create';
-
         $model      = $this->resolveModel();
         $connection = $model->getConnection();
         $affected   = [];
@@ -294,8 +307,6 @@ abstract class DataTablesEditor
      */
     public function restore(Request $request)
     {
-        $this->action = 'restore';
-
         $this->restoring = true;
 
         return $this->edit($request);
@@ -309,8 +320,6 @@ abstract class DataTablesEditor
      */
     public function edit(Request $request)
     {
-        $this->action = $this->action ?? 'edit';
-
         $connection = $this->getBuilder()->getConnection();
         $affected   = [];
         $errors     = [];
@@ -409,8 +418,6 @@ abstract class DataTablesEditor
      */
     public function forceDelete(Request $request)
     {
-        $this->action = 'forceDelete';
-
         $this->forceDeleting = true;
 
         return $this->remove($request);
@@ -425,8 +432,6 @@ abstract class DataTablesEditor
      */
     public function remove(Request $request)
     {
-        $this->action = $this->action ?? 'remove';
-
         $connection = $this->getBuilder()->getConnection();
         $affected   = [];
         $errors     = [];
@@ -561,7 +566,6 @@ abstract class DataTablesEditor
      */
     public function upload(Request $request)
     {
-        $this->action = 'upload';
 
         $field   = $request->input('uploadField');
         $storage = Storage::disk($this->disk);
