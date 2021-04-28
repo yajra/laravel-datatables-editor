@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [v1.23.0] - 2020-04-28
+
+- Add customActions property. #58
+- Fix HTTP code (422) when an error occurs.
+
 ## [v1.22.0] - 2020-09-09
 
 - Add support for Laravel 8.
@@ -184,7 +189,8 @@ Rule::unique($model->getTable())
 - CRUD pre / post events hooks.
 - Artisan command for DataTables Editor generation.
 
-[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.22.0...master
+[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.23.0...master
+[v1.23.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.22.0...v1.23.0
 [v1.22.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.21.0...v1.22.0
 [v1.21.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.20.0...v1.21.0
 [v1.20.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.19.0...v1.20.0
