@@ -2,8 +2,8 @@
 
 namespace Yajra\DataTables\Generators;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Str;
 
 class DataTablesEditorCommand extends GeneratorCommand
 {
