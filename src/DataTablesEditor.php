@@ -105,11 +105,7 @@ abstract class DataTablesEditor
         $this->action = $request->get('action');
 
         if (! in_array($this->action, array_merge($this->actions, $this->customActions))) {
-            if ($request->wantsJson()) {
-                return $this->toJson([], [], sprintf('Requested action (%s) not supported!', $this->action));
-            } else {
-                throw new DataTablesEditorException('Requested action not supported!');
-            }
+            throw new DataTablesEditorException(sprintf('Requested action (%s) not supported!', $this->action));
         }
 
         try {
