@@ -3,16 +3,16 @@
 namespace Yajra\DataTables;
 
 use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 
 abstract class DataTablesEditor
 {
@@ -147,12 +147,12 @@ abstract class DataTablesEditor
         ];
 
         if ($error) {
-            $code = 422;
+            $code              = 422;
             $response['error'] = $error;
         }
 
         if ($errors) {
-            $code = 422;
+            $code                    = 422;
             $response['fieldErrors'] = $errors;
         }
 
@@ -562,7 +562,6 @@ abstract class DataTablesEditor
      */
     public function upload(Request $request)
     {
-
         $field   = $request->input('uploadField');
         $storage = Storage::disk($this->disk);
 
