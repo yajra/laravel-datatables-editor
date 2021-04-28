@@ -13,7 +13,7 @@ class DataTablesEditorTest extends TestCase
     public function it_throws_exception_on_invalid_action()
     {
         $this->expectException(DataTablesEditorException::class);
-        $this->expectExceptionMessage('Requested action not supported!');
+        $this->expectExceptionMessage('Requested action (invalid) not supported!');
 
         $editor = new UsersDataTableEditor();
         request()->merge(['action' => 'invalid']);
