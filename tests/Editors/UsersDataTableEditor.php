@@ -2,9 +2,9 @@
 
 namespace Yajra\DataTables\Tests\Editors;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTablesEditor;
-use Illuminate\Database\Eloquent\Model;
 use Yajra\DataTables\Tests\Models\User;
 
 class UsersDataTableEditor extends DataTablesEditor

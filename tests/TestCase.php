@@ -2,14 +2,14 @@
 
 namespace Yajra\DataTables\Tests;
 
-use Illuminate\Http\Request;
-use Yajra\DataTables\Tests\Models\User;
 use Illuminate\Database\Schema\Blueprint;
-use Yajra\DataTables\EditorServiceProvider;
-use Orchestra\Testbench\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Request;
+use Orchestra\Testbench\TestCase as BaseTestCase;
+use Yajra\DataTables\EditorServiceProvider;
 use Yajra\DataTables\Tests\Editors\UsersDataTableEditor;
 use Yajra\DataTables\Tests\Editors\UsersWithEventsDataTableEditor;
+use Yajra\DataTables\Tests\Models\User;
 
 abstract class TestCase extends BaseTestCase
 {
