@@ -2,7 +2,11 @@
 
 ## [Unreleased]
 
-## [v1.23.0] - 2020-04-28
+## [v1.24.0] - 2021-05-17
+
+- Remove abstract on create, edit and remove rules.
+
+## [v1.23.0] - 2021-04-28
 
 - Add customActions property. #58
 - Fix HTTP code (422) when an error occurs.
