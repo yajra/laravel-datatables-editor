@@ -244,7 +244,9 @@ abstract class DataTablesEditor
      *
      * @return array
      */
-    abstract public function createRules();
+    public function createRules() {
+        return [];
+    }
 
     /**
      * Get validation messages.
@@ -392,7 +394,9 @@ abstract class DataTablesEditor
      * @param Model $model
      * @return array
      */
-    abstract public function editRules(Model $model);
+    public function editRules(Model $model) {
+        return [];
+    }
 
     /**
      * Get edit validation messages.
@@ -493,7 +497,9 @@ abstract class DataTablesEditor
      * @param Model $model
      * @return array
      */
-    abstract public function removeRules(Model $model);
+    public function removeRules(Model $model) {
+        return [];
+    }
 
     /**
      * Get remove validation messages.
