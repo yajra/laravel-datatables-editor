@@ -244,7 +244,8 @@ abstract class DataTablesEditor
      *
      * @return array
      */
-    public function createRules() {
+    public function createRules()
+    {
         return [];
     }
 
@@ -394,7 +395,8 @@ abstract class DataTablesEditor
      * @param Model $model
      * @return array
      */
-    public function editRules(Model $model) {
+    public function editRules(Model $model)
+    {
         return [];
     }
 
@@ -497,7 +499,8 @@ abstract class DataTablesEditor
      * @param Model $model
      * @return array
      */
-    public function removeRules(Model $model) {
+    public function removeRules(Model $model)
+    {
         return [];
     }
 
