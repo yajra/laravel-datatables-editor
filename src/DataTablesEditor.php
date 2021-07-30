@@ -573,7 +573,7 @@ abstract class DataTablesEditor
 
         try {
             $rules      = $this->uploadRules();
-            $fieldRules = ['upload' => data_get($rules, $field, [])];
+            $fieldRules = ['upload' => $rules[$field] ?? []];
 
             $this->validate($request, $fieldRules, $this->messages(), $this->attributes());
 
