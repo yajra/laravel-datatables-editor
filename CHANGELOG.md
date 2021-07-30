@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [v1.24.1] - 2021-07-30
+
+- Fix setting of validation rules when using dot in field name. 
+- Ex: settings.image, settings.logo, etc.
+  
 ## [v1.24.0] - 2021-05-17
 
 - Remove abstract on create, edit and remove rules.
@@ -193,7 +198,9 @@ Rule::unique($model->getTable())
 - CRUD pre / post events hooks.
 - Artisan command for DataTables Editor generation.
 
-[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.23.0...master
+[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.24.1...master
+[v1.24.1]: https://github.com/yajra/laravel-datatables-editor/compare/v1.24.0...v1.24.1
+[v1.24.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.23.0...v1.24.0
 [v1.23.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.22.0...v1.23.0
 [v1.22.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.21.0...v1.22.0
 [v1.21.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.20.0...v1.21.0
