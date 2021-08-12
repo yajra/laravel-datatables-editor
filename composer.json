@@ -21,8 +21,7 @@
     "illuminate/console": "*",
     "illuminate/database": "*",
     "illuminate/http": "*",
-    "illuminate/validation": "*",
-    "yajra/laravel-datatables-buttons": "3.*|4.*"
+    "illuminate/validation": "*"
   },
   "require-dev": {
     "orchestra/testbench": "~3.5"
