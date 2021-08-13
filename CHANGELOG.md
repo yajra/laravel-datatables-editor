@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v1.24.2] - 2021-08-13
+
+- Remove buttons package in dependency. #62
+
 ## [v1.24.1] - 2021-07-30
 
 - Fix setting of validation rules when using dot in field name. 
@@ -198,7 +202,8 @@ Rule::unique($model->getTable())
 - CRUD pre / post events hooks.
 - Artisan command for DataTables Editor generation.
 
-[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.24.1...master
+[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.24.2...master
+[v1.24.2]: https://github.com/yajra/laravel-datatables-editor/compare/v1.24.1...v1.24.2
 [v1.24.1]: https://github.com/yajra/laravel-datatables-editor/compare/v1.24.0...v1.24.1
 [v1.24.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.23.0...v1.24.0
 [v1.23.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.22.0...v1.23.0
