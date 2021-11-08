@@ -96,8 +96,9 @@ abstract class DataTablesEditor
     /**
      * Process dataTables editor action request.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse|mixed
+     *
      * @throws DataTablesEditorException
      */
     public function process(Request $request)
@@ -132,9 +133,9 @@ abstract class DataTablesEditor
     /**
      * Display success data in dataTables editor format.
      *
-     * @param array $data
-     * @param array $errors
-     * @param string $error
+     * @param  array  $data
+     * @param  array  $errors
+     * @param  string  $error
      * @return JsonResponse
      */
     protected function toJson(array $data, array $errors = [], $error = '')
@@ -162,8 +163,9 @@ abstract class DataTablesEditor
     /**
      * Process create action request.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function create(Request $request)
@@ -263,6 +265,7 @@ abstract class DataTablesEditor
      * Get create validation messages.
      *
      * @return array
+     *
      * @deprecated deprecated since v1.12.0, please use messages() instead.
      */
     protected function createMessages()
@@ -281,7 +284,7 @@ abstract class DataTablesEditor
     }
 
     /**
-     * @param Validator $validator
+     * @param  Validator  $validator
      * @return array
      */
     protected function formatErrors(Validator $validator)
@@ -301,7 +304,7 @@ abstract class DataTablesEditor
     /**
      * Process restore action request.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function restore(Request $request)
@@ -314,7 +317,7 @@ abstract class DataTablesEditor
     /**
      * Process edit action request.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
      */
     public function edit(Request $request)
@@ -392,7 +395,7 @@ abstract class DataTablesEditor
     /**
      * Get edit action validation rules.
      *
-     * @param Model $model
+     * @param  Model  $model
      * @return array
      */
     public function editRules(Model $model)
@@ -404,6 +407,7 @@ abstract class DataTablesEditor
      * Get edit validation messages.
      *
      * @return array
+     *
      * @deprecated deprecated since v1.12.0, please use messages() instead.
      */
     protected function editMessages()
@@ -414,8 +418,9 @@ abstract class DataTablesEditor
     /**
      * Process force delete action request.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
+     *
      * @throws \Exception
      */
     public function forceDelete(Request $request)
@@ -428,8 +433,9 @@ abstract class DataTablesEditor
     /**
      * Process remove action request.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function remove(Request $request)
@@ -496,7 +502,7 @@ abstract class DataTablesEditor
     /**
      * Get remove action validation rules.
      *
-     * @param Model $model
+     * @param  Model  $model
      * @return array
      */
     public function removeRules(Model $model)
@@ -508,6 +514,7 @@ abstract class DataTablesEditor
      * Get remove validation messages.
      *
      * @return array
+     *
      * @deprecated deprecated since v1.12.0, please use messages() instead.
      */
     protected function removeMessages()
@@ -518,8 +525,8 @@ abstract class DataTablesEditor
     /**
      * Get remove query exception message.
      *
-     * @param QueryException $exception
-     * @param Model $model
+     * @param  QueryException  $exception
+     * @param  Model  $model
      * @return string
      */
     protected function removeExceptionMessage(QueryException $exception, Model $model)
@@ -540,7 +547,7 @@ abstract class DataTablesEditor
     /**
      * Set the dataTables model on runtime.
      *
-     * @param Model|string $model
+     * @param  Model|string  $model
      * @return DataTablesEditor
      */
     public function setModel($model)
@@ -553,7 +560,7 @@ abstract class DataTablesEditor
     /**
      * Set model unguard state.
      *
-     * @param bool $state
+     * @param  bool  $state
      * @return $this
      */
     public function unguard($state = true)
@@ -566,7 +573,7 @@ abstract class DataTablesEditor
     /**
      * Handle uploading of file.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function upload(Request $request)
@@ -632,8 +639,8 @@ abstract class DataTablesEditor
     }
 
     /**
-     * @param string $field
-     * @param UploadedFile $uploadedFile
+     * @param  string  $field
+     * @param  UploadedFile  $uploadedFile
      * @return string
      */
     protected function getUploadedFilename($field, UploadedFile $uploadedFile)
