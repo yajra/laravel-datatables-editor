@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v1.25.0] - 2021-11-08
+
+- Add methods for custom handling of uploaded files.
+
 ## [v1.24.2] - 2021-08-13
 
 - Remove buttons package in dependency. #62
@@ -202,7 +206,8 @@ Rule::unique($model->getTable())
 - CRUD pre / post events hooks.
 - Artisan command for DataTables Editor generation.
 
-[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.24.2...master
+[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.25.0...master
+[v1.25.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.24.2...v1.25.0
 [v1.24.2]: https://github.com/yajra/laravel-datatables-editor/compare/v1.24.1...v1.24.2
 [v1.24.1]: https://github.com/yajra/laravel-datatables-editor/compare/v1.24.0...v1.24.1
 [v1.24.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.23.0...v1.24.0
