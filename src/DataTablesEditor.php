@@ -579,7 +579,7 @@ abstract class DataTablesEditor
     public function upload(Request $request)
     {
         $field   = $request->input('uploadField');
-        $storage = Storage::disk($this->disk);
+        $storage = $this->getDisk();
 
         try {
             $rules      = $this->uploadRules();
@@ -588,8 +588,7 @@ abstract class DataTablesEditor
             $this->validate($request, $fieldRules, $this->messages(), $this->attributes());
 
             $uploadedFile = $request->file('upload');
-            $filename     = $this->getUploadedFilename($field, $uploadedFile);
-            $id           = $storage->putFileAs($this->uploadDir, $uploadedFile, $filename);
+            $id           = $this->storeUploadedFile($field, $uploadedFile);
 
             if (method_exists($this, 'uploaded')) {
                 $id = $this->uploaded($id);
@@ -604,7 +603,7 @@ abstract class DataTablesEditor
                             'filename'      => $id,
                             'original_name' => $uploadedFile->getClientOriginalName(),
                             'size'          => $uploadedFile->getSize(),
-                            'directory'     => $this->uploadDir,
+                            'directory'     => $this->getUploadDirectory(),
                             'disk'          => $this->disk,
                             'url'           => $storage->url($id),
                         ],
@@ -646,5 +645,33 @@ abstract class DataTablesEditor
     protected function getUploadedFilename($field, UploadedFile $uploadedFile)
     {
         return date('Ymd_His') . '_' . $uploadedFile->getClientOriginalName();
+    }
+
+    /**
+     * @return string
+     */
+    protected function getUploadDirectory()
+    {
+        return $this->uploadDir;
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Filesystem\Filesystem|\Illuminate\Filesystem\FilesystemAdapter
+     */
+    protected function getDisk()
+    {
+        return Storage::disk($this->disk);
+    }
+
+    /**
+     * @param string $field
+     * @param UploadedFile $uploadedFile
+     * @return false|string
+     */
+    protected function storeUploadedFile($field, UploadedFile $uploadedFile)
+    {
+        $filename = $this->getUploadedFilename($field, $uploadedFile);
+
+        return $this->getDisk()->putFileAs($this->getUploadDirectory(), $uploadedFile, $filename);
     }
 }
