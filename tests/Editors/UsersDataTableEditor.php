@@ -27,7 +27,7 @@ class UsersDataTableEditor extends DataTablesEditor
     /**
      * Get edit action validation rules.
      *
-     * @param Model $model
+     * @param  Model  $model
      * @return array
      */
     public function editRules(Model $model)
@@ -41,7 +41,7 @@ class UsersDataTableEditor extends DataTablesEditor
     /**
      * Get remove action validation rules.
      *
-     * @param Model $model
+     * @param  Model  $model
      * @return array
      */
     public function removeRules(Model $model)
