@@ -49,7 +49,7 @@ This package is a plugin of [Laravel DataTables](https://github.com/yajra/larave
 
 ## Quick Installation
 
-`composer require yajra/laravel-datatables-editor:^1.0`
+`composer require yajra/laravel-datatables-editor:^1.25`
 
 And that's it! Start building out some awesome DataTables Editor!
 
