@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [v1.25.1] - 2022-05-05
+
+- Fix doc blocks.
+- Update readme.
+
 ## [v1.25.0] - 2021-11-08
 
 - Add methods for custom handling of uploaded files.
@@ -206,7 +211,8 @@ Rule::unique($model->getTable())
 - CRUD pre / post events hooks.
 - Artisan command for DataTables Editor generation.
 
-[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.25.0...master
+[Unreleased]: https://github.com/yajra/laravel-datatables-editor/compare/v1.25.1...master
+[v1.25.1]: https://github.com/yajra/laravel-datatables-editor/compare/v1.25.0...v1.25.1
 [v1.25.0]: https://github.com/yajra/laravel-datatables-editor/compare/v1.24.2...v1.25.0
 [v1.24.2]: https://github.com/yajra/laravel-datatables-editor/compare/v1.24.1...v1.24.2
 [v1.24.1]: https://github.com/yajra/laravel-datatables-editor/compare/v1.24.0...v1.24.1
