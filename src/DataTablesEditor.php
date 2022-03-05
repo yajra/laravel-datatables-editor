@@ -47,7 +47,7 @@ abstract class DataTablesEditor
     protected $customActions = [];
 
     /**
-     * @var \Illuminate\Database\Eloquent\Model
+     * @var null|string|\Illuminate\Database\Eloquent\Model
      */
     protected $model = null;
 
@@ -228,7 +228,7 @@ abstract class DataTablesEditor
     /**
      * Resolve model to used.
      *
-     * @return Model|\Illuminate\Database\Eloquent\SoftDeletes
+     * @return Model
      */
     protected function resolveModel()
     {
