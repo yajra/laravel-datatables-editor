@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v1.25.3] - 2023-02-21
+
+- fix: cmd model namespace #75
+
 ## [v1.25.2] - 2023-02-20
 
 - fix: default user namespace
