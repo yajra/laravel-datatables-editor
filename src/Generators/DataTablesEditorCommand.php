@@ -71,7 +71,7 @@ class DataTablesEditorCommand extends GeneratorCommand
 
         return $model
             ? $rootNamespace . '\\' . ($modelNamespace ? $modelNamespace . '\\' : '') . Str::singular($name)
-            : $rootNamespace . '\\User';
+            : $rootNamespace . '\\Models\\User';
     }
 
     /**
