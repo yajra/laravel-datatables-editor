@@ -20,7 +20,7 @@ This package is a plugin of [Laravel DataTables](https://github.com/yajra/larave
 
 ## Documentations
 
-- [Laravel DataTables Editor Manual](https://yajrabox.com/docs/laravel-datatables/master/editor-installation)
+- [Laravel DataTables Editor Manual](https://yajrabox.com/docs/laravel-datatables/editor-installation)
 - [jQuery DataTables Editor Manual](https://editor.datatables.net/manual/index)
 
 ## Features
