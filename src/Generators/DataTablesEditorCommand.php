@@ -36,6 +36,7 @@ class DataTablesEditorCommand extends GeneratorCommand
      *
      * @param  string  $name
      * @return string
+     *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     protected function buildClass($name): string
@@ -71,7 +72,7 @@ class DataTablesEditorCommand extends GeneratorCommand
         $modelNamespace = $this->option('model-namespace') ? $this->option('model-namespace') : $this->laravel['config']->get('datatables-buttons.namespace.model');
 
         return $model
-            ? $rootNamespace . '\\' . ($modelNamespace ? $modelNamespace . '\\' : '') . Str::singular($name)
+            ? ($modelNamespace ?? $rootNamespace) . '\\' . Str::singular($name)
             : $rootNamespace . '\\Models\\User';
     }
 
