@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [v1.25.2] - 2023-02-20
+
+- fix: default user namespace
+- fix: editor stub return type
+
 ## [v1.25.1] - 2022-03-05
 
 - Fix doc blocks.
