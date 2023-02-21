@@ -4,7 +4,7 @@
 
 ## [v1.25.4] - 2023-02-22
 
-- feat: update stub with event hook example
+- fix: update stub with event hook example
 
 ## [v1.25.3] - 2023-02-21
 
