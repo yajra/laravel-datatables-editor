@@ -21,13 +21,9 @@ abstract class TestCase extends BaseTestCase
 
         $this->migrateDatabase();
 
-        $this->app['router']->post('users', function (UsersDataTableEditor $editor, Request $request) {
-            return $editor->process($request);
-        });
+        $this->app['router']->post('users', fn (UsersDataTableEditor $editor, Request $request) => $editor->process($request));
 
-        $this->app['router']->post('usersWithEvents', function (UsersWithEventsDataTableEditor $editor, Request $request) {
-            return $editor->process($request);
-        });
+        $this->app['router']->post('usersWithEvents', fn (UsersWithEventsDataTableEditor $editor, Request $request) => $editor->process($request));
     }
 
     protected function migrateDatabase()

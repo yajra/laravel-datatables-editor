@@ -606,7 +606,7 @@ abstract class DataTablesEditor
                 'fieldErrors' => [
                     [
                         'name' => $field,
-                        'status' => str_replace('upload', $field, $exception->errors()['upload'][0]),
+                        'status' => str_replace('upload', $field, (string) $exception->errors()['upload'][0]),
                     ],
                 ],
             ]);

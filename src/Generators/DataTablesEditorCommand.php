@@ -65,7 +65,7 @@ class DataTablesEditorCommand extends GeneratorCommand
         $name = $this->getNameInput();
         $rootNamespace = $this->laravel->getNamespace();
         $model = $this->option('model') || $this->option('model-namespace');
-        $modelNamespace = $this->option('model-namespace') ? $this->option('model-namespace') : $this->laravel['config']->get('datatables-buttons.namespace.model');
+        $modelNamespace = $this->option('model-namespace') ?: $this->laravel['config']->get('datatables-buttons.namespace.model');
 
         return $model
             ? ($modelNamespace ?? $rootNamespace).'\\'.Str::singular($name)
