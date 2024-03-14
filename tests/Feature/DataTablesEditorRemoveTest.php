@@ -1,10 +1,13 @@
 <?php
 
-namespace Yajra\DataTables\Tests;
+namespace Yajra\DataTables\Tests\Feature;
+
+use PHPUnit\Framework\Attributes\Test;
+use Yajra\DataTables\Tests\TestCase;
 
 class DataTablesEditorRemoveTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_can_process_remove_request()
     {
         $this->createUser();
@@ -29,7 +32,7 @@ class DataTablesEditorRemoveTest extends TestCase
         $this->assertEquals('taylor@laravel.com', $data['email']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_process_bulk_remove_request()
     {
         $this->createUser();
