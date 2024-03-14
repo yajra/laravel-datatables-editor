@@ -65,7 +65,7 @@ class DataTablesEditorCommand extends GeneratorCommand
         $name = $this->getNameInput();
         $rootNamespace = $this->laravel->getNamespace();
         $model = $this->option('model') || $this->option('model-namespace');
-        $modelNamespace = $this->option('model-namespace') ?: $this->laravel['config']->get('datatables-buttons.namespace.model');
+        $modelNamespace = $this->option('model-namespace') ?: config('datatables-buttons.namespace.model');
 
         return $model
             ? ($modelNamespace ?? $rootNamespace).'\\'.Str::singular($name)
@@ -74,8 +74,6 @@ class DataTablesEditorCommand extends GeneratorCommand
 
     /**
      * Replace model import.
-     *
-     * @return $this
      */
     protected function replaceModelImport(string &$stub): DataTablesEditorCommand
     {
@@ -91,9 +89,12 @@ class DataTablesEditorCommand extends GeneratorCommand
      */
     protected function getStub(): string
     {
-        $path = $this->laravel['config']->get('datatables-buttons.stub');
+        $path = config('datatables-buttons.stub');
+        if ($path && is_string($path)) {
+            return base_path($path).'/editor.stub';
+        }
 
-        return $path ? base_path($path).'/editor.stub' : __DIR__.'/stubs/editor.stub';
+        return __DIR__.'/stubs/editor.stub';
     }
 
     /**
@@ -129,7 +130,7 @@ class DataTablesEditorCommand extends GeneratorCommand
             $name .= $this->type;
         }
 
-        return $this->getDefaultNamespace(trim($rootNamespace, '\\')).'\\'.$name;
+        return $this->getDefaultNamespace(trim((string) $rootNamespace, '\\')).'\\'.$name;
     }
 
     /**
@@ -139,6 +140,6 @@ class DataTablesEditorCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace): string
     {
-        return $rootNamespace.'\\'.$this->laravel['config']->get('datatables-buttons.namespace.base', 'DataTables');
+        return $rootNamespace.'\\'.config('datatables-buttons.namespace.base', 'DataTables');
     }
 }

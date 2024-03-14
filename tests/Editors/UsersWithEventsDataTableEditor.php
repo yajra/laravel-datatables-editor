@@ -9,7 +9,7 @@ use Yajra\DataTables\Tests\Models\User;
 
 class UsersWithEventsDataTableEditor extends DataTablesEditor
 {
-    protected $model = User::class;
+    protected ?string $model = User::class;
 
     /**
      * Get create action validation rules.
