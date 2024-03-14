@@ -14,9 +14,9 @@ class DataTablesEditorRemoveTest extends TestCase
 
         $response = $this->postJson('users', [
             'action' => 'remove',
-            'data'   => [
+            'data' => [
                 1 => [
-                    'name'  => 'Taylor',
+                    'name' => 'Taylor',
                     'email' => 'taylor@laravel.com',
                 ],
             ],
@@ -37,7 +37,7 @@ class DataTablesEditorRemoveTest extends TestCase
     {
         $this->createUser();
         $this->createUser([
-            'name'  => 'Jeffrey',
+            'name' => 'Jeffrey',
             'email' => 'jeffrey@laravel.com',
         ]);
 
@@ -46,13 +46,13 @@ class DataTablesEditorRemoveTest extends TestCase
 
         $response = $this->postJson('users', [
             'action' => 'remove',
-            'data'   => [
+            'data' => [
                 1 => [
-                    'name'  => 'Taylor',
+                    'name' => 'Taylor',
                     'email' => 'taylor@laravel.com',
                 ],
                 2 => [
-                    'name'  => 'Jeffrey',
+                    'name' => 'Jeffrey',
                     'email' => 'jefrrey@laravel.com',
                 ],
             ],

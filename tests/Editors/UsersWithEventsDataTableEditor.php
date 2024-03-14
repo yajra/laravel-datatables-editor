@@ -20,7 +20,7 @@ class UsersWithEventsDataTableEditor extends DataTablesEditor
     {
         return [
             'email' => 'required|email',
-            'name'  => 'required',
+            'name' => 'required',
         ];
     }
 
@@ -32,14 +32,13 @@ class UsersWithEventsDataTableEditor extends DataTablesEditor
     /**
      * Get edit action validation rules.
      *
-     * @param  Model  $model
      * @return array
      */
     public function editRules(Model $model)
     {
         return [
-            'email' => 'sometimes|required|email|' . Rule::unique('users')->ignore($model->getKey()),
-            'name'  => 'sometimes|required',
+            'email' => 'sometimes|required|email|'.Rule::unique('users')->ignore($model->getKey()),
+            'name' => 'sometimes|required',
         ];
     }
 
@@ -56,7 +55,6 @@ class UsersWithEventsDataTableEditor extends DataTablesEditor
     /**
      * Get remove action validation rules.
      *
-     * @param  Model  $model
      * @return array
      */
     public function removeRules(Model $model)

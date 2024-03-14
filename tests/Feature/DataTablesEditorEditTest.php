@@ -14,9 +14,9 @@ class DataTablesEditorEditTest extends TestCase
 
         $response = $this->postJson('users', [
             'action' => 'edit',
-            'data'   => [
+            'data' => [
                 1 => [
-                    'name'  => 'Jeffrey',
+                    'name' => 'Jeffrey',
                     'email' => 'jefrrey@laravel.com',
                 ],
             ],
@@ -37,9 +37,9 @@ class DataTablesEditorEditTest extends TestCase
 
         $response = $this->postJson('usersWithEvents', [
             'action' => 'edit',
-            'data'   => [
+            'data' => [
                 1 => [
-                    'name'  => 'Jeffrey',
+                    'name' => 'Jeffrey',
                     'email' => 'jefrrey@laravel.com',
                 ],
             ],
@@ -62,9 +62,9 @@ class DataTablesEditorEditTest extends TestCase
 
         $response = $this->postJson('users', [
             'action' => 'edit',
-            'data'   => [
+            'data' => [
                 1 => [
-                    'name'  => '',
+                    'name' => '',
                     'email' => 'taylor',
                 ],
             ],
@@ -89,7 +89,7 @@ class DataTablesEditorEditTest extends TestCase
 
         $response = $this->postJson('users', [
             'action' => 'edit',
-            'data'   => [
+            'data' => [
                 1 => [
                     'name' => 'Jeffrey',
                 ],
@@ -108,18 +108,18 @@ class DataTablesEditorEditTest extends TestCase
     {
         $this->createUser();
         $this->createUser([
-            'name'  => 'Jeffrey',
+            'name' => 'Jeffrey',
             'email' => 'jeffrey@laravel.com',
         ]);
 
         $response = $this->postJson('users', [
             'action' => 'edit',
-            'data'   => [
+            'data' => [
                 1 => [
-                    'name'  => 'Arjay',
+                    'name' => 'Arjay',
                 ],
                 2 => [
-                    'name'  => 'Arjay',
+                    'name' => 'Arjay',
                 ],
             ],
         ]);

@@ -12,9 +12,9 @@ class DataTablesEditorCreateTest extends TestCase
     {
         $response = $this->postJson('users', [
             'action' => 'create',
-            'data'   => [
+            'data' => [
                 0 => [
-                    'name'  => 'Taylor',
+                    'name' => 'Taylor',
                     'email' => 'taylor@laravel.com',
                 ],
             ],
@@ -34,9 +34,9 @@ class DataTablesEditorCreateTest extends TestCase
     {
         $response = $this->postJson('usersWithEvents', [
             'action' => 'create',
-            'data'   => [
+            'data' => [
                 0 => [
-                    'name'  => 'Taylor',
+                    'name' => 'Taylor',
                     'email' => 'taylor@laravel.com',
                 ],
             ],
@@ -58,9 +58,9 @@ class DataTablesEditorCreateTest extends TestCase
     {
         $response = $this->postJson('users', [
             'action' => 'create',
-            'data'   => [
+            'data' => [
                 [
-                    'name'  => '',
+                    'name' => '',
                     'email' => 'taylor',
                 ],
             ],

@@ -53,9 +53,9 @@ abstract class TestCase extends BaseTestCase
         $app['config']->set('app.debug', true);
         $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
     }
 
@@ -68,7 +68,7 @@ abstract class TestCase extends BaseTestCase
     {
         if (! $attributes) {
             $attributes = [
-                'name'  => 'Taylor',
+                'name' => 'Taylor',
                 'email' => 'taylor@laravel.com',
             ];
         }
