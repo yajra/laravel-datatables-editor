@@ -9,14 +9,12 @@ use Yajra\DataTables\Tests\Models\User;
 
 class UsersWithEventsDataTableEditor extends DataTablesEditor
 {
-    protected ?string $model = User::class;
+    protected $model = User::class;
 
     /**
      * Get create action validation rules.
-     *
-     * @return array
      */
-    public function createRules()
+    public function createRules(): array
     {
         return [
             'email' => 'required|email',
@@ -24,17 +22,15 @@ class UsersWithEventsDataTableEditor extends DataTablesEditor
         ];
     }
 
-    public function created($model, $data)
+    public function created(Model $model, array $data): Model
     {
         return $model->setAttribute('created', 'it works!');
     }
 
     /**
      * Get edit action validation rules.
-     *
-     * @return array
      */
-    public function editRules(Model $model)
+    public function editRules(Model $model): array
     {
         return [
             'email' => 'sometimes|required|email|'.Rule::unique('users')->ignore($model->getKey()),
@@ -42,22 +38,20 @@ class UsersWithEventsDataTableEditor extends DataTablesEditor
         ];
     }
 
-    public function updated($model, $data)
+    public function updated(Model $model, array $data): Model
     {
         return $model->setAttribute('updated', 'it works!');
     }
 
-    public function saved($model, $data)
+    public function saved(Model $model, array $data): Model
     {
         return $model->setAttribute('saved', 'it works!');
     }
 
     /**
      * Get remove action validation rules.
-     *
-     * @return array
      */
-    public function removeRules(Model $model)
+    public function removeRules(Model $model): array
     {
         return [];
     }
