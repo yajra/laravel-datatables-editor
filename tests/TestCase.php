@@ -20,13 +20,9 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         $this->migrateDatabase();
-
-        $this->app['router']->post('users', fn (UsersDataTableEditor $editor, Request $request) => $editor->process($request));
-
-        $this->app['router']->post('usersWithEvents', fn (UsersWithEventsDataTableEditor $editor, Request $request) => $editor->process($request));
     }
 
-    protected function migrateDatabase()
+    protected function migrateDatabase(): void
     {
         /** @var \Illuminate\Database\Schema\Builder $schemaBuilder */
         $schemaBuilder = $this->app['db']->connection()->getSchemaBuilder();
@@ -39,12 +35,22 @@ abstract class TestCase extends BaseTestCase
         });
     }
 
+    protected function defineRoutes($router): void
+    {
+        $router->post('users', fn (UsersDataTableEditor $editor, Request $request) => $editor->process($request));
+
+        $router->post(
+            'usersWithEvents',
+            fn (UsersWithEventsDataTableEditor $editor, Request $request) => $editor->process($request)
+        );
+    }
+
     /**
      * Set up the environment.
      *
      * @param  \Illuminate\Foundation\Application  $app
      */
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         $app['config']->set('app.debug', true);
         $app['config']->set('database.default', 'sqlite');
@@ -55,12 +61,14 @@ abstract class TestCase extends BaseTestCase
         ]);
     }
 
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
-        return [EditorServiceProvider::class];
+        return [
+            EditorServiceProvider::class,
+        ];
     }
 
-    protected function createUser($attributes = [])
+    protected function createUser($attributes = []): User
     {
         if (! $attributes) {
             $attributes = [
@@ -69,6 +77,6 @@ abstract class TestCase extends BaseTestCase
             ];
         }
 
-        return User::query()->forceCreate($attributes);
+        return User::forceCreate($attributes);
     }
 }
