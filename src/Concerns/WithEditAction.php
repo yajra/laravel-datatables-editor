@@ -40,9 +40,7 @@ trait WithEditAction
 
             $data = $this->updating($model, $data);
 
-            if (method_exists($this, 'saving')) {
-                $data = $this->saving($model, $data);
-            }
+            $data = $this->saving($model, $data);
 
             if ($this->restoring && method_exists($model, 'restore')) {
                 $model->restore();
