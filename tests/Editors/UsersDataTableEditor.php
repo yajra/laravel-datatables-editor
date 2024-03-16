@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yajra\DataTables\Tests\Editors;
 
 use Illuminate\Database\Eloquent\Model;
@@ -13,38 +15,30 @@ class UsersDataTableEditor extends DataTablesEditor
 
     /**
      * Get create action validation rules.
-     *
-     * @return array
      */
-    public function createRules()
+    public function createRules(): array
     {
         return [
             'email' => 'required|email',
-            'name'  => 'required',
+            'name' => 'required',
         ];
     }
 
     /**
      * Get edit action validation rules.
-     *
-     * @param  Model  $model
-     * @return array
      */
-    public function editRules(Model $model)
+    public function editRules(Model $model): array
     {
         return [
-            'email' => 'sometimes|required|email|' . Rule::unique('users')->ignore($model->getKey()),
-            'name'  => 'sometimes|required',
+            'email' => 'sometimes|required|email|'.Rule::unique('users')->ignore($model->getKey()),
+            'name' => 'sometimes|required',
         ];
     }
 
     /**
      * Get remove action validation rules.
-     *
-     * @param  Model  $model
-     * @return array
      */
-    public function removeRules(Model $model)
+    public function removeRules(Model $model): array
     {
         return [];
     }

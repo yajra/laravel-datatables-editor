@@ -1,19 +1,22 @@
 <?php
 
-namespace Yajra\DataTables\Tests;
+namespace Yajra\DataTables\Tests\Feature;
+
+use PHPUnit\Framework\Attributes\Test;
+use Yajra\DataTables\Tests\TestCase;
 
 class DataTablesEditorEditTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_can_process_edit_request()
     {
         $this->createUser();
 
         $response = $this->postJson('users', [
             'action' => 'edit',
-            'data'   => [
+            'data' => [
                 1 => [
-                    'name'  => 'Jeffrey',
+                    'name' => 'Jeffrey',
                     'email' => 'jefrrey@laravel.com',
                 ],
             ],
@@ -27,16 +30,16 @@ class DataTablesEditorEditTest extends TestCase
         $this->assertEquals('jefrrey@laravel.com', $data['email']);
     }
 
-    /** @test */
+    #[Test]
     public function it_allows_updated_callback_and_returns_the_modified_model()
     {
         $this->createUser();
 
         $response = $this->postJson('usersWithEvents', [
             'action' => 'edit',
-            'data'   => [
+            'data' => [
                 1 => [
-                    'name'  => 'Jeffrey',
+                    'name' => 'Jeffrey',
                     'email' => 'jefrrey@laravel.com',
                 ],
             ],
@@ -52,16 +55,16 @@ class DataTablesEditorEditTest extends TestCase
         $this->assertEquals('it works!', $data['saved']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_validate_invalid_inputs()
     {
         $this->createUser();
 
         $response = $this->postJson('users', [
             'action' => 'edit',
-            'data'   => [
+            'data' => [
                 1 => [
-                    'name'  => '',
+                    'name' => '',
                     'email' => 'taylor',
                 ],
             ],
@@ -73,20 +76,20 @@ class DataTablesEditorEditTest extends TestCase
         $this->assertArrayHasKey('status', $errors[0]);
 
         $this->assertEquals('email', $errors[0]['name']);
-        $this->assertEquals('The email must be a valid email address.', $errors[0]['status']);
+        $this->assertEquals('The email field must be a valid email address.', $errors[0]['status']);
 
         $this->assertEquals('name', $errors[1]['name']);
         $this->assertEquals('The name field is required.', $errors[1]['status']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_update_partial_data()
     {
         $this->createUser();
 
         $response = $this->postJson('users', [
             'action' => 'edit',
-            'data'   => [
+            'data' => [
                 1 => [
                     'name' => 'Jeffrey',
                 ],
@@ -100,23 +103,23 @@ class DataTablesEditorEditTest extends TestCase
         $this->assertEquals('Jeffrey', $data['name']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_process_bulk_update_request()
     {
         $this->createUser();
         $this->createUser([
-            'name'  => 'Jeffrey',
+            'name' => 'Jeffrey',
             'email' => 'jeffrey@laravel.com',
         ]);
 
         $response = $this->postJson('users', [
             'action' => 'edit',
-            'data'   => [
+            'data' => [
                 1 => [
-                    'name'  => 'Arjay',
+                    'name' => 'Arjay',
                 ],
                 2 => [
-                    'name'  => 'Arjay',
+                    'name' => 'Arjay',
                 ],
             ],
         ]);

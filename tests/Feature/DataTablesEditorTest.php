@@ -1,15 +1,17 @@
 <?php
 
-namespace Yajra\DataTables\Tests;
+namespace Yajra\DataTables\Tests\Feature;
 
+use PHPUnit\Framework\Attributes\Test;
 use Yajra\DataTables\DataTablesEditorException;
 use Yajra\DataTables\Tests\Editors\UsersDataTableEditor;
 use Yajra\DataTables\Tests\Models\Post;
 use Yajra\DataTables\Tests\Models\User;
+use Yajra\DataTables\Tests\TestCase;
 
 class DataTablesEditorTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_throws_exception_on_invalid_action()
     {
         $this->expectException(DataTablesEditorException::class);
@@ -20,7 +22,7 @@ class DataTablesEditorTest extends TestCase
         $editor->process(request());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_set_model_class_via_runtime()
     {
         $editor = new UsersDataTableEditor();
@@ -29,7 +31,7 @@ class DataTablesEditorTest extends TestCase
         $this->assertEquals(Post::class, $editor->getModel());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_set_model_instance_via_runtime()
     {
         $editor = new UsersDataTableEditor();
