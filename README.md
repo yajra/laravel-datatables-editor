@@ -26,6 +26,13 @@ This package is a plugin of [Laravel DataTables](https://github.com/yajra/larave
 - [Laravel DataTables Editor Manual](https://yajrabox.com/docs/laravel-datatables/editor-installation)
 - [jQuery DataTables Editor Manual](https://editor.datatables.net/manual/index)
 
+## Laravel Version Compatibility
+
+| Laravel | Package |
+|:--------|:--------|
+| 5-10    | 1.x     |
+| 11.x    | 11.x    |
+
 ## Features
 
 - DataTables Editor CRUD actions supported.
