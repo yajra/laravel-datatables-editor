@@ -2,7 +2,10 @@
 
 [![Laravel 11](https://img.shields.io/badge/Laravel-11-orange.svg)](http://laravel.com)
 [![Latest Stable Version](https://img.shields.io/packagist/v/yajra/laravel-datatables-editor.svg)](https://packagist.org/packages/yajra/laravel-datatables-editor)
-[![Build Status](https://travis-ci.org/yajra/laravel-datatables-editor.svg?branch=master)](https://travis-ci.org/yajra/laravel-datatables-editor)
+
+[![Continuous Integration](https://github.com/yajra/laravel-datatables-editor/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/yajra/laravel-datatables-editor/actions/workflows/continuous-integration.yml)
+[![Static Analysis](https://github.com/yajra/laravel-datatables-editor/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/yajra/laravel-datatables-editor/actions/workflows/static-analysis.yml)
+
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/yajra/laravel-datatables-editor/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/yajra/laravel-datatables-editor/?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/yajra/laravel-datatables-editor.svg)](https://packagist.org/packages/yajra/laravel-datatables-editor)
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://packagist.org/packages/yajra/laravel-datatables-editor)
