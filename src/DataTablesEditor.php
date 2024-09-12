@@ -136,8 +136,8 @@ abstract class DataTablesEditor
         ];
 
         if ($error) {
-            $code = 422;
-            $response['error'] = $error;
+            $code = 400;
+            $response['error'] = '<div class="DTE_Form_Error_Item">'.implode('</div><br class="DTE_Form_Error_Separator" /><div>', (array) $error).'</div>';
         }
 
         if ($errors) {
