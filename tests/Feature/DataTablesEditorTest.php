@@ -17,7 +17,7 @@ class DataTablesEditorTest extends TestCase
         $this->expectException(DataTablesEditorException::class);
         $this->expectExceptionMessage('Requested action (invalid) not supported!');
 
-        $editor = new UsersDataTableEditor();
+        $editor = new UsersDataTableEditor;
         request()->merge(['action' => 'invalid']);
         $editor->process(request());
     }
@@ -25,7 +25,7 @@ class DataTablesEditorTest extends TestCase
     #[Test]
     public function it_can_set_model_class_via_runtime()
     {
-        $editor = new UsersDataTableEditor();
+        $editor = new UsersDataTableEditor;
         $this->assertEquals(User::class, $editor->getModel());
         $editor->setModel(Post::class);
         $this->assertEquals(Post::class, $editor->getModel());
@@ -34,7 +34,7 @@ class DataTablesEditorTest extends TestCase
     #[Test]
     public function it_can_set_model_instance_via_runtime()
     {
-        $editor = new UsersDataTableEditor();
+        $editor = new UsersDataTableEditor;
         $editor->setModel(new Post);
         $this->assertEquals(new Post, $editor->getModel());
     }

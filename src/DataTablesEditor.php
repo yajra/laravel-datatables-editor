@@ -14,7 +14,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
- * @template TModelClass of Model
+ * @template TModel of Model
  */
 abstract class DataTablesEditor
 {
@@ -52,7 +52,7 @@ abstract class DataTablesEditor
     protected array $customActions = [];
 
     /**
-     * @var null|class-string<\Illuminate\Database\Eloquent\Model>|Model
+     * @var null|class-string<TModel>|TModel
      */
     protected $model = null;
 
@@ -136,8 +136,8 @@ abstract class DataTablesEditor
         ];
 
         if ($error) {
-            $code = 422;
-            $response['error'] = $error;
+            $code = 400;
+            $response['error'] = '<div class="DTE_Form_Error_Item">'.implode('</div><br class="DTE_Form_Error_Separator" /><div>', (array) $error).'</div>';
         }
 
         if ($errors) {
@@ -167,7 +167,7 @@ abstract class DataTablesEditor
     /**
      * Set the dataTables model on runtime.
      *
-     * @param  class-string<Model>|Model  $model
+     * @param  class-string<TModel>|TModel  $model
      */
     public function setModel(Model|string $model): static
     {
@@ -201,7 +201,7 @@ abstract class DataTablesEditor
     /**
      * Get eloquent builder of the model.
      *
-     * @return \Illuminate\Database\Eloquent\Builder<TModelClass>
+     * @return \Illuminate\Database\Eloquent\Builder<TModel>
      */
     protected function getBuilder(): Builder
     {
@@ -217,6 +217,8 @@ abstract class DataTablesEditor
 
     /**
      * Resolve model to used.
+     *
+     * @return TModel
      */
     protected function resolveModel(): Model
     {
