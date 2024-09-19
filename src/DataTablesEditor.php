@@ -22,6 +22,7 @@ abstract class DataTablesEditor
     use Concerns\WithEditAction;
     use Concerns\WithForceDeleteAction;
     use Concerns\WithRemoveAction;
+    use Concerns\WithRestoreAction;
     use Concerns\WithUploadAction;
     use ValidatesRequests;
 
