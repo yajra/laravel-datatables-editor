@@ -20,6 +20,8 @@ This package is a plugin of [Laravel DataTables](https://github.com/yajra/larave
 
 - [Laravel 12.x](https://github.com/laravel/framework)
 - [Laravel DataTables 12.x](https://github.com/yajra/laravel-datatables)
+- [DataTables 2.x](https://datatables.net)
+- [DataTables Editor 2.x](https://editor.datatables.net)
 
 ## Documentations
 
