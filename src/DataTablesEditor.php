@@ -223,7 +223,11 @@ abstract class DataTablesEditor
      */
     protected function resolveModel(): Model
     {
-        if (! $this->model instanceof Model) {
+        if (is_null($this->model)) {
+            throw new DataTablesEditorException('Model not set.');
+        }
+
+        if (is_string($this->model)) {
             $this->model = new $this->model;
         }
 
@@ -233,9 +237,7 @@ abstract class DataTablesEditor
     }
 
     /**
-     * Set model unguard state.
-     *
-     * @return $this
+     * Set model unguarded state.
      */
     public function unguard(bool $state = true): static
     {
