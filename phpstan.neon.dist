@@ -15,7 +15,6 @@ parameters:
         -   identifier: binaryOp.invalid
         -   identifier: offsetAccess.nonOffsetAccessible
         -   identifier: return.type
-        -   identifier: method.nonObject
         -   identifier: assign.propertyType
 
     excludePaths:

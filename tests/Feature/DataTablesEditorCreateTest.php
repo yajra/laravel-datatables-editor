@@ -24,9 +24,35 @@ class DataTablesEditorCreateTest extends TestCase
 
         $data = $response->json()['data'][0];
         $this->assertArrayHasKey('id', $data);
+        $this->assertEquals(1, $data['DT_RowId']);
         $this->assertEquals(1, $data['id']);
         $this->assertEquals('Taylor', $data['name']);
         $this->assertEquals('taylor@laravel.com', $data['email']);
+    }
+
+    #[Test]
+    public function it_does_not_process_not_fillable_columns()
+    {
+        $response = $this->postJson('users', [
+            'action' => 'create',
+            'data' => [
+                0 => [
+                    'name' => 'Taylor',
+                    'email' => 'taylor@laravel.com',
+                    'role' => 'admin',
+                ],
+            ],
+        ]);
+
+        $this->assertDatabaseHas('users', ['id' => 1]);
+
+        $data = $response->json()['data'][0];
+        $this->assertArrayHasKey('id', $data);
+        $this->assertEquals(1, $data['DT_RowId']);
+        $this->assertEquals(1, $data['id']);
+        $this->assertEquals('Taylor', $data['name']);
+        $this->assertEquals('taylor@laravel.com', $data['email']);
+        $this->assertNotContains('role', $data);
     }
 
     #[Test]
@@ -76,5 +102,30 @@ class DataTablesEditorCreateTest extends TestCase
 
         $this->assertEquals('name', $errors[1]['name']);
         $this->assertEquals('The name field is required.', $errors[1]['status']);
+    }
+
+    #[Test]
+    public function it_can_set_the_model_to_unguarded_state(): void
+    {
+        $response = $this->postJson('users-unguarded', [
+            'action' => 'create',
+            'data' => [
+                0 => [
+                    'name' => 'Taylor',
+                    'email' => 'taylor@laravel.com',
+                    'role' => 'admin',
+                ],
+            ],
+        ]);
+
+        $this->assertDatabaseHas('users', ['id' => 1]);
+
+        $data = $response->json()['data'][0];
+        $this->assertArrayHasKey('id', $data);
+        $this->assertEquals(1, $data['DT_RowId']);
+        $this->assertEquals(1, $data['id']);
+        $this->assertEquals('Taylor', $data['name']);
+        $this->assertEquals('taylor@laravel.com', $data['email']);
+        $this->assertEquals('admin', $data['role']);
     }
 }

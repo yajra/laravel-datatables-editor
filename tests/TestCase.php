@@ -31,6 +31,7 @@ abstract class TestCase extends BaseTestCase
             $table->string('name');
             $table->string('email');
             $table->string('password')->nullable();
+            $table->string('role')->nullable();
             $table->timestamps();
         });
     }
@@ -38,6 +39,7 @@ abstract class TestCase extends BaseTestCase
     protected function defineRoutes($router): void
     {
         $router->post('users', fn (UsersDataTableEditor $editor, Request $request) => $editor->process($request));
+        $router->post('users-unguarded', fn (UsersDataTableEditor $editor, Request $request) => $editor->unguard()->process($request));
 
         $router->post(
             'usersWithEvents',
