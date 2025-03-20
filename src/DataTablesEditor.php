@@ -48,7 +48,7 @@ abstract class DataTablesEditor
     /**
      * List of custom editor actions.
      *
-     * @var string[]
+     * @var array<array-key, string|class-string>
      */
     protected array $customActions = [];
 
@@ -89,25 +89,25 @@ abstract class DataTablesEditor
 
     /**
      * Process dataTables editor action request.
-     *
-     * @return JsonResponse
-     *
-     * @throws DataTablesEditorException
      */
-    public function process(Request $request): mixed
+    public function process(?Request $request = null): JsonResponse
     {
-        if ($request->get('action') && is_string($request->get('action'))) {
-            $this->action = $request->get('action');
-        } else {
-            throw new DataTablesEditorException('Invalid action requested!');
-        }
+        $request ??= request();
+        $this->action = $request->get('action');
 
-        if (! in_array($this->action, array_merge($this->actions, $this->customActions))) {
-            throw new DataTablesEditorException(sprintf('Requested action (%s) not supported!', $this->action));
-        }
+        throw_unless(
+            $this->isValidAction($request),
+            DataTablesEditorException::class,
+            'Invalid action requested!'
+        );
 
         try {
-            return $this->{$this->action}($request);
+            if (method_exists($this, $this->action)) {
+                return $this->{$this->action}($request);
+            }
+
+            // @phpstan-ignore-next-line  method.nonObject
+            return resolve($this->customActions[$this->action], ['editor' => $this])->handle($request);
         } catch (Exception $exception) {
             $error = config('app.debug')
                 ? '<strong>Server Error:</strong> '.$exception->getMessage()
@@ -119,6 +119,18 @@ abstract class DataTablesEditor
         }
     }
 
+    public function isValidAction(Request $request): bool
+    {
+        $validActions = $this->actions;
+        foreach ($this->customActions as $key => $action) {
+            $validActions[] = is_numeric($key) ? $action : $key;
+        }
+
+        return in_array($this->action, $validActions)
+            && $request->get('action')
+            && is_string($request->get('action'));
+    }
+
     protected function getUseFriendlyErrorMessage(): string
     {
         return 'An error occurs while processing your request.';
@@ -127,7 +139,7 @@ abstract class DataTablesEditor
     /**
      * Display success data in dataTables editor format.
      */
-    protected function toJson(array $data, array $errors = [], string|array $error = ''): JsonResponse
+    public function toJson(array $data, array $errors = [], string|array $error = ''): JsonResponse
     {
         $code = 200;
 

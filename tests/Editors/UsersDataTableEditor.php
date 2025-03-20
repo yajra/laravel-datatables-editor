@@ -13,6 +13,10 @@ class UsersDataTableEditor extends DataTablesEditor
 {
     protected $model = User::class;
 
+    protected array $customActions = [
+        'remove2fa' => Remove2FA::class,
+    ];
+
     /**
      * Get create action validation rules.
      */
