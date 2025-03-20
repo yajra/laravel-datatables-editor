@@ -188,6 +188,7 @@ abstract class DataTablesEditor
 
         return $this;
     }
+
     /**
      * Get validation messages.
      */
