@@ -48,7 +48,7 @@ abstract class DataTablesEditor
     /**
      * List of custom editor actions.
      *
-     * @var array<string, class-string|string>
+     * @var array<array-key, string|class-string>
      */
     protected array $customActions = [];
 
