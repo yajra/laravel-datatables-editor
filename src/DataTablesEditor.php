@@ -90,12 +90,12 @@ abstract class DataTablesEditor
     /**
      * Process dataTables editor action request.
      *
-     * @return JsonResponse
-     *
-     * @throws DataTablesEditorException
+     * @throws \Yajra\DataTables\DataTablesEditorException
      */
-    public function process(Request $request): mixed
+    public function process(?Request $request = null): JsonResponse
     {
+        $request ??= request();
+
         if ($request->get('action') && is_string($request->get('action'))) {
             $this->action = $request->get('action');
         } else {
