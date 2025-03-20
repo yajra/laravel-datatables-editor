@@ -127,7 +127,7 @@ abstract class DataTablesEditor
     /**
      * Display success data in dataTables editor format.
      */
-    protected function toJson(array $data, array $errors = [], string|array $error = ''): JsonResponse
+    public function toJson(array $data, array $errors = [], string|array $error = ''): JsonResponse
     {
         $code = 200;
 
