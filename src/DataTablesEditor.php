@@ -270,11 +270,18 @@ abstract class DataTablesEditor
         return (array) $request->get('data');
     }
 
+    /**
+     * @param  TModel  $model
+     */
     public function saving(Model $model, array $data): array
     {
         return $data;
     }
 
+    /**
+     * @param  TModel  $model
+     * @return TModel
+     */
     public function saved(Model $model, array $data): Model
     {
         return $model;
