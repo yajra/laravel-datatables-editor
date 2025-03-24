@@ -18,9 +18,15 @@ use Illuminate\Http\Request;
  */
 abstract class DataTablesEditor
 {
+    /** @use \Yajra\DataTables\Concerns\WithCreateAction<TModel> */
     use Concerns\WithCreateAction;
+
+    /** @use \Yajra\DataTables\Concerns\WithEditAction<TModel> */
     use Concerns\WithEditAction;
+
     use Concerns\WithForceDeleteAction;
+
+    /** @use \Yajra\DataTables\Concerns\WithRemoveAction<TModel> */
     use Concerns\WithRemoveAction;
     use Concerns\WithRestoreAction;
     use Concerns\WithUploadAction;
