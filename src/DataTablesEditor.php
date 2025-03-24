@@ -28,6 +28,7 @@ abstract class DataTablesEditor
 
     /** @use \Yajra\DataTables\Concerns\WithRemoveAction<TModel> */
     use Concerns\WithRemoveAction;
+
     use Concerns\WithRestoreAction;
     use Concerns\WithUploadAction;
     use ValidatesRequests;
