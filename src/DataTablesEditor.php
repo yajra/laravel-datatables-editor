@@ -24,10 +24,10 @@ abstract class DataTablesEditor
     /** @use \Yajra\DataTables\Concerns\WithEditAction<TModel> */
     use Concerns\WithEditAction;
 
+    use Concerns\WithForceDeleteAction;
+
     /** @use \Yajra\DataTables\Concerns\WithRemoveAction<TModel> */
     use Concerns\WithRemoveAction;
-
-    use Concerns\WithForceDeleteAction;
     use Concerns\WithRestoreAction;
     use Concerns\WithUploadAction;
     use ValidatesRequests;
