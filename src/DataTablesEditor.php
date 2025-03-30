@@ -178,6 +178,8 @@ abstract class DataTablesEditor
 
     /**
      * Get dataTables model.
+     *
+     * @return class-string<TModel>|TModel|null
      */
     public function getModel(): Model|string|null
     {
