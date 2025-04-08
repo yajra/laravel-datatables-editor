@@ -138,7 +138,7 @@ abstract class DataTablesEditor
             && is_string($request->get('action'));
     }
 
-    protected function getUseFriendlyErrorMessage(): string
+    public function getUseFriendlyErrorMessage(): string
     {
         return 'An error occurs while processing your request.';
     }
@@ -206,7 +206,7 @@ abstract class DataTablesEditor
         return [];
     }
 
-    protected function formatErrors(Validator $validator): array
+    public function formatErrors(Validator $validator): array
     {
         $errors = [];
 
@@ -267,7 +267,7 @@ abstract class DataTablesEditor
         return $this;
     }
 
-    protected function dataFromRequest(Request $request): array
+    public function dataFromRequest(Request $request): array
     {
         return (array) $request->get('data');
     }
