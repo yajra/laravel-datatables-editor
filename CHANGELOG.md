@@ -2,6 +2,10 @@
 
 ## [Unreleased](https://github.com/yajra/laravel-datatables-editor/compare/v11.0.0...master)
 
+## v12.1.4 - 2025-04-08
+
+- fix: expose several api as public #97
+
 ## v12.1.3 - 2025-03-30
 
 - fix: getModel generic docs #96
