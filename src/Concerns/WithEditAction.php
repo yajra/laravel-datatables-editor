@@ -70,6 +70,8 @@ trait WithEditAction
 
     /**
      * Get edit action validation rules.
+     *
+     * @param  TModel  $model
      */
     public function editRules(Model $model): array
     {

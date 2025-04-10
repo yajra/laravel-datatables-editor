@@ -72,6 +72,8 @@ trait WithRemoveAction
 
     /**
      * Get remove action validation rules.
+     *
+     * @param  TModel  $model
      */
     public function removeRules(Model $model): array
     {
