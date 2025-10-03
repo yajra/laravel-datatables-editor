@@ -2,6 +2,10 @@
 
 ## [Unreleased](https://github.com/yajra/laravel-datatables-editor/compare/v11.0.0...master)
 
+## v12.3.0 - 2025-10-03
+
+- feat: Editor as route action #100
+
 ## v12.2.0 - 2025-10-01
 
 - feat: editor read action server side handler #99
