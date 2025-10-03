@@ -96,6 +96,11 @@ abstract class DataTablesEditor
      */
     protected array $currentData = [];
 
+    public function __invoke(): JsonResponse
+    {
+        return $this->process();
+    }
+
     /**
      * Process dataTables editor action request.
      */

@@ -2,6 +2,7 @@
 
 namespace Yajra\DataTables\Tests\Feature;
 
+use Illuminate\Routing\Router;
 use PHPUnit\Framework\Attributes\Test;
 use Yajra\DataTables\DataTablesEditorException;
 use Yajra\DataTables\Tests\Editors\UsersDataTableEditor;
@@ -37,5 +38,26 @@ class DataTablesEditorTest extends TestCase
         $editor = new UsersDataTableEditor;
         $editor->setModel(new Post);
         $this->assertEquals(new Post, $editor->getModel());
+    }
+
+    #[Test]
+    public function it_can_be_used_as_route_action(): void
+    {
+        /** @var Router $router */
+        $router = $this->app['router'];
+        $router->post('editor-as-route-action', UsersDataTableEditor::class);
+
+        $this->postJson('editor-as-route-action', [
+            'action' => 'create',
+            'data' => [
+                [
+                    'name' => 'New User',
+                    'email' => 'newuser@email.test',
+                ],
+            ],
+        ])
+            ->assertOk()
+            ->assertJsonStructure(['action', 'data'])
+            ->assertJsonPath('action', 'create');
     }
 }
