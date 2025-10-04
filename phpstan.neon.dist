@@ -16,6 +16,5 @@ parameters:
         -   identifier: offsetAccess.nonOffsetAccessible
         -   identifier: return.type
         -   identifier: assign.propertyType
-        -   identifier: offsetAccess.notFound
 
     excludePaths:
