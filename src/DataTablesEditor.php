@@ -12,27 +12,29 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Concerns\WithCreateAction;
+use Yajra\DataTables\Concerns\WithEditAction;
+use Yajra\DataTables\Concerns\WithRemoveAction;
 
 /**
  * @template TModel of Model
  */
 abstract class DataTablesEditor
 {
-    /** @use \Yajra\DataTables\Concerns\WithCreateAction<TModel> */
-    use Concerns\WithCreateAction;
-
-    /** @use \Yajra\DataTables\Concerns\WithEditAction<TModel> */
-    use Concerns\WithEditAction;
-
     use Concerns\WithForceDeleteAction;
     use Concerns\WithReadAction;
-
-    /** @use \Yajra\DataTables\Concerns\WithRemoveAction<TModel> */
-    use Concerns\WithRemoveAction;
-
     use Concerns\WithRestoreAction;
     use Concerns\WithUploadAction;
     use ValidatesRequests;
+
+    /** @use WithCreateAction<TModel> */
+    use WithCreateAction;
+
+    /** @use WithEditAction<TModel> */
+    use WithEditAction;
+
+    /** @use WithRemoveAction<TModel> */
+    use WithRemoveAction;
 
     /**
      * Action performed by the editor.
@@ -230,7 +232,7 @@ abstract class DataTablesEditor
     /**
      * Get eloquent builder of the model.
      *
-     * @return \Illuminate\Database\Eloquent\Builder<TModel>
+     * @return Builder<TModel>
      */
     protected function getBuilder(): Builder
     {

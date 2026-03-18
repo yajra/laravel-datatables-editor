@@ -35,6 +35,7 @@ This package is a plugin of [Laravel DataTables](https://github.com/yajra/larave
 | 5-10    | 1.x     |
 | 11.x    | 11.x    |
 | 12.x    | 12.x    |
+| 13.x    | 13.x    |
 
 ## Features
 
@@ -47,7 +48,7 @@ This package is a plugin of [Laravel DataTables](https://github.com/yajra/larave
 
 ## Quick Installation
 
-`composer require yajra/laravel-datatables-editor:^12`
+`composer require yajra/laravel-datatables-editor:^13`
 
 And that's it! Start building out some awesome DataTables Editor!
 
