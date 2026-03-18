@@ -22,18 +22,17 @@ use Yajra\DataTables\Concerns\WithRemoveAction;
 abstract class DataTablesEditor
 {
     use Concerns\WithForceDeleteAction;
-
     use Concerns\WithReadAction;
-
     use Concerns\WithRestoreAction;
     use Concerns\WithUploadAction;
-
     use ValidatesRequests;
 
     /** @use WithCreateAction<TModel> */
     use WithCreateAction;
+
     /** @use WithEditAction<TModel> */
     use WithEditAction;
+
     /** @use WithRemoveAction<TModel> */
     use WithRemoveAction;
 
