@@ -35,6 +35,7 @@ This package is a plugin of [Laravel DataTables](https://github.com/yajra/larave
 | 5-10    | 1.x     |
 | 11.x    | 11.x    |
 | 12.x    | 12.x    |
+| 13.x    | 13.x    |
 
 ## Features
 
