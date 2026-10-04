@@ -27,6 +27,8 @@ trait WithEditAction
             $this->currentData = $data;
 
             $model = $this->getBuilder()->findOrFail($key);
+            $this->authorizeAction($this->restoring ? 'restore' : 'update', $model, $data);
+
             $validator = $this->getValidationFactory()
                 ->make(
                     $data,
