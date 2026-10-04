@@ -2,6 +2,8 @@
 
 namespace Yajra\DataTables\Tests\Feature;
 
+use Illuminate\Auth\GenericUser;
+use Illuminate\Support\Facades\Gate;
 use PHPUnit\Framework\Attributes\Test;
 use Yajra\DataTables\Tests\TestCase;
 
@@ -30,6 +32,35 @@ class DataTablesEditorRemoveTest extends TestCase
         $this->assertEquals(1, $data['id']);
         $this->assertEquals('Taylor', $data['name']);
         $this->assertEquals('taylor@laravel.com', $data['email']);
+    }
+
+    #[Test]
+    public function it_denies_authenticated_remove_when_policy_rejects_the_row()
+    {
+        $this->createUser();
+        $this->createUser([
+            'name' => 'Jeffrey',
+            'email' => 'jeffrey@laravel.com',
+        ]);
+
+        auth()->setUser(new GenericUser(['id' => 1]));
+        Gate::define('delete', fn (GenericUser $user, $model): bool => $model->getKey() === 1);
+
+        $response = $this->postJson('users', [
+            'action' => 'remove',
+            'data' => [
+                2 => [
+                    'name' => 'Jeffrey',
+                    'email' => 'jeffrey@laravel.com',
+                ],
+            ],
+        ]);
+
+        $response->assertStatus(400);
+        $this->assertDatabaseHas('users', [
+            'id' => 2,
+            'name' => 'Jeffrey',
+        ]);
     }
 
     #[Test]

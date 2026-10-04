@@ -2,6 +2,8 @@
 
 namespace Yajra\DataTables\Tests\Feature;
 
+use Illuminate\Auth\GenericUser;
+use Illuminate\Support\Facades\Gate;
 use PHPUnit\Framework\Attributes\Test;
 use Yajra\DataTables\Tests\TestCase;
 
@@ -101,6 +103,34 @@ class DataTablesEditorEditTest extends TestCase
         $this->assertArrayHasKey('id', $data);
         $this->assertEquals(1, $data['id']);
         $this->assertEquals('Jeffrey', $data['name']);
+    }
+
+    #[Test]
+    public function it_denies_authenticated_edit_when_policy_rejects_the_row()
+    {
+        $this->createUser();
+        $this->createUser([
+            'name' => 'Jeffrey',
+            'email' => 'jeffrey@laravel.com',
+        ]);
+
+        auth()->setUser(new GenericUser(['id' => 1]));
+        Gate::define('update', fn (GenericUser $user, $model): bool => $model->getKey() === 1);
+
+        $response = $this->postJson('users', [
+            'action' => 'edit',
+            'data' => [
+                2 => [
+                    'name' => 'Attacker',
+                ],
+            ],
+        ]);
+
+        $response->assertStatus(400);
+        $this->assertDatabaseHas('users', [
+            'id' => 2,
+            'name' => 'Jeffrey',
+        ]);
     }
 
     #[Test]

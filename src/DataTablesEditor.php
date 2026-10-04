@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Concerns\WithCreateAction;
 use Yajra\DataTables\Concerns\WithEditAction;
 use Yajra\DataTables\Concerns\WithRemoveAction;
@@ -205,6 +206,23 @@ abstract class DataTablesEditor
         $this->model = $model;
 
         return $this;
+    }
+
+    /**
+     * Authorize a mutating action against the resolved row model.
+     *
+     * Applications that expose editor endpoints to authenticated users should
+     * define the corresponding Laravel policy abilities (update, delete,
+     * forceDelete, restore) or override this method to apply their own row
+     * scoping/ownership rules.
+     *
+     * @param  TModel  $model
+     */
+    protected function authorizeAction(string $ability, Model $model, array $data): void
+    {
+        if (auth()->check()) {
+            Gate::authorize($ability, $model);
+        }
     }
 
     /**

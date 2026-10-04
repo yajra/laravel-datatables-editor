@@ -29,6 +29,8 @@ trait WithRemoveAction
             $this->currentData = $data;
 
             $model = $this->getBuilder()->findOrFail($key);
+            $this->authorizeAction($this->forceDeleting ? 'forceDelete' : 'delete', $model, $data);
+
             $validator = $this->getValidationFactory()
                 ->make(
                     $data,
