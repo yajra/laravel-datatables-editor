@@ -25,43 +25,51 @@ trait WithCreateAction
         $affected = [];
         $errors = [];
 
+        $transactionLevel = $connection->transactionLevel();
         $connection->beginTransaction();
-        foreach ($this->dataFromRequest($request) as $data) {
-            $this->currentData = $data;
 
-            $instance = $model->newInstance();
-            $validator = $this->getValidationFactory()
-                ->make(
-                    $data,
-                    $this->createRules(), $this->messages() + $this->createMessages(),
-                    $this->attributes()
-                );
-            if ($validator->fails()) {
-                foreach ($this->formatErrors($validator) as $error) {
-                    $errors[] = $error;
+        try {
+            foreach ($this->dataFromRequest($request) as $data) {
+                $this->currentData = $data;
+
+                $instance = $model->newInstance();
+                $validator = $this->getValidationFactory()
+                    ->make(
+                        $data,
+                        $this->createRules(), $this->messages() + $this->createMessages(),
+                        $this->attributes()
+                    );
+                if ($validator->fails()) {
+                    foreach ($this->formatErrors($validator) as $error) {
+                        $errors[] = $error;
+                    }
+
+                    continue;
                 }
 
-                continue;
+                $data = $this->creating($instance, $data);
+
+                $data = $this->saving($instance, $data);
+
+                $instance->fill($data)->save();
+
+                $instance = $this->created($instance, $data);
+
+                $instance = $this->saved($instance, $data);
+
+                $instance->setAttribute('DT_RowId', $instance->getKey());
+                $affected[] = $instance;
             }
 
-            $data = $this->creating($instance, $data);
-
-            $data = $this->saving($instance, $data);
-
-            $instance->fill($data)->save();
-
-            $instance = $this->created($instance, $data);
-
-            $instance = $this->saved($instance, $data);
-
-            $instance->setAttribute('DT_RowId', $instance->getKey());
-            $affected[] = $instance;
-        }
-
-        if (! $errors) {
-            $connection->commit();
-        } else {
-            $connection->rollBack();
+            if (! $errors) {
+                $connection->commit();
+            } else {
+                $affected = [];
+            }
+        } finally {
+            while ($connection->transactionLevel() > $transactionLevel) {
+                $connection->rollBack();
+            }
         }
 
         return $this->toJson($affected, $errors);

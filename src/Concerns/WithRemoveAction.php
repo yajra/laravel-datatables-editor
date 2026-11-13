@@ -23,48 +23,55 @@ trait WithRemoveAction
         $affected = [];
         $errors = [];
 
+        $transactionLevel = $connection->transactionLevel();
         $connection->beginTransaction();
 
-        foreach ($this->dataFromRequest($request) as $key => $data) {
-            $this->currentData = $data;
+        try {
+            foreach ($this->dataFromRequest($request) as $key => $data) {
+                $this->currentData = $data;
 
-            $model = $this->getBuilder()->findOrFail($key);
-            $validator = $this->getValidationFactory()
-                ->make(
-                    $data,
-                    $this->removeRules($model), $this->messages() + $this->removeMessages(),
-                    $this->attributes()
-                );
-            if ($validator->fails()) {
-                foreach ($this->formatErrors($validator) as $error) {
-                    $errors[] = $error['status'];
+                $model = $this->getBuilder()->findOrFail($key);
+                $validator = $this->getValidationFactory()
+                    ->make(
+                        $data,
+                        $this->removeRules($model), $this->messages() + $this->removeMessages(),
+                        $this->attributes()
+                    );
+                if ($validator->fails()) {
+                    foreach ($this->formatErrors($validator) as $error) {
+                        $errors[] = $error['status'];
+                    }
+
+                    continue;
                 }
 
-                continue;
+                try {
+                    $deleted = clone $model;
+                    $data = $this->deleting($model, $data);
+
+                    $this->forceDeleting ? $model->forceDelete() : $model->delete();
+
+                    $deleted = $this->deleted($deleted, $data);
+                } catch (QueryException $exception) {
+                    $error = config('app.debug')
+                        ? $exception->getMessage()
+                        : $this->removeExceptionMessage($exception, $model);
+
+                    $errors[] = $error;
+                }
+
+                $affected[] = $deleted;
             }
 
-            try {
-                $deleted = clone $model;
-                $data = $this->deleting($model, $data);
-
-                $this->forceDeleting ? $model->forceDelete() : $model->delete();
-
-                $deleted = $this->deleted($deleted, $data);
-            } catch (QueryException $exception) {
-                $error = config('app.debug')
-                    ? $exception->getMessage()
-                    : $this->removeExceptionMessage($exception, $model);
-
-                $errors[] = $error;
+            if (! $errors) {
+                $connection->commit();
+            } else {
+                $affected = [];
             }
-
-            $affected[] = $deleted;
-        }
-
-        if (! $errors) {
-            $connection->commit();
-        } else {
-            $connection->rollBack();
+        } finally {
+            while ($connection->transactionLevel() > $transactionLevel) {
+                $connection->rollBack();
+            }
         }
 
         return $this->toJson($affected, [], $errors);

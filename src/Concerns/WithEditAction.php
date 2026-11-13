@@ -22,47 +22,55 @@ trait WithEditAction
         $affected = [];
         $errors = [];
 
+        $transactionLevel = $connection->transactionLevel();
         $connection->beginTransaction();
-        foreach ($this->dataFromRequest($request) as $key => $data) {
-            $this->currentData = $data;
 
-            $model = $this->getBuilder()->findOrFail($key);
-            $validator = $this->getValidationFactory()
-                ->make(
-                    $data,
-                    $this->editRules($model), $this->messages() + $this->editMessages(),
-                    $this->attributes()
-                );
-            if ($validator->fails()) {
-                foreach ($this->formatErrors($validator) as $error) {
-                    $errors[] = $error;
+        try {
+            foreach ($this->dataFromRequest($request) as $key => $data) {
+                $this->currentData = $data;
+
+                $model = $this->getBuilder()->findOrFail($key);
+                $validator = $this->getValidationFactory()
+                    ->make(
+                        $data,
+                        $this->editRules($model), $this->messages() + $this->editMessages(),
+                        $this->attributes()
+                    );
+                if ($validator->fails()) {
+                    foreach ($this->formatErrors($validator) as $error) {
+                        $errors[] = $error;
+                    }
+
+                    continue;
                 }
 
-                continue;
+                $data = $this->updating($model, $data);
+
+                $data = $this->saving($model, $data);
+
+                if ($this->restoring && method_exists($model, 'restore')) {
+                    $model->restore();
+                } else {
+                    $model->fill($data)->save();
+                }
+
+                $model = $this->updated($model, $data);
+
+                $model = $this->saved($model, $data);
+
+                $model->setAttribute('DT_RowId', $model->getKey());
+                $affected[] = $model;
             }
 
-            $data = $this->updating($model, $data);
-
-            $data = $this->saving($model, $data);
-
-            if ($this->restoring && method_exists($model, 'restore')) {
-                $model->restore();
+            if (! $errors) {
+                $connection->commit();
             } else {
-                $model->fill($data)->save();
+                $affected = [];
             }
-
-            $model = $this->updated($model, $data);
-
-            $model = $this->saved($model, $data);
-
-            $model->setAttribute('DT_RowId', $model->getKey());
-            $affected[] = $model;
-        }
-
-        if (! $errors) {
-            $connection->commit();
-        } else {
-            $connection->rollBack();
+        } finally {
+            while ($connection->transactionLevel() > $transactionLevel) {
+                $connection->rollBack();
+            }
         }
 
         return $this->toJson($affected, $errors);

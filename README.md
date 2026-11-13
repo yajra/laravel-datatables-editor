@@ -52,6 +52,10 @@ This package is a plugin of [Laravel DataTables](https://github.com/yajra/larave
 
 And that's it! Start building out some awesome DataTables Editor!
 
+## Bulk action transactions
+
+Create, edit, remove, restore, and force-delete actions roll back the entire batch when validation or a model hook fails. Rolled-back batches return an empty `data` array. Action transactions preserve an existing caller-owned transaction; nested rollback requires database savepoint support. `process()` returns the existing error response format for both exceptions and PHP errors.
+
 ## Contributing
 
 Please see [CONTRIBUTING](https://github.com/yajra/laravel-datatables-editor/blob/master/.github/CONTRIBUTING.md) for details.
