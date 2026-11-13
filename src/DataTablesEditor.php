@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Yajra\DataTables;
 
-use Exception;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Throwable;
 use Yajra\DataTables\Concerns\WithCreateAction;
 use Yajra\DataTables\Concerns\WithEditAction;
 use Yajra\DataTables\Concerns\WithRemoveAction;
@@ -124,7 +124,7 @@ abstract class DataTablesEditor
 
             // @phpstan-ignore-next-line  method.nonObject
             return resolve($this->customActions[$this->action], ['editor' => $this])->handle($request);
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             $error = config('app.debug')
                 ? '<strong>Server Error:</strong> '.$exception->getMessage()
                 : $this->getUseFriendlyErrorMessage();
